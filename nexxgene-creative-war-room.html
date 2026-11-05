@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEXXGENE Creative War Room</title>
+<style>
+:root{
+  --paper:#F4EEE1;--paper-2:#FBF8F1;--card:#FFFFFF;
+  --ink:#241A30;--ink-2:#574C60;--muted:#8A806F;
+  --purple:#3E205E;--gold:#B0873F;--gold-2:#D8B364;--green:#1A5C3A;--red:#9B2C2C;
+  --line:rgba(36,26,48,.12);--line-2:rgba(36,26,48,.2);
+  --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --serif:Georgia,"Times New Roman",serif;
+  --mono:"SF Mono",ui-monospace,"Cascadia Code",Consolas,monospace;
+  --r:14px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--paper);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:900px;margin:0 auto;padding:48px 24px 100px}
+h1,h2,h3{font-family:var(--serif);font-weight:600;letter-spacing:-.01em;line-height:1.15}
+h1{font-size:clamp(30px,5vw,46px);margin-bottom:10px}
+.sub{color:var(--ink-2);font-size:17px;max-width:620px}
+.meta{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:18px}
+section{margin-top:52px;scroll-margin-top:20px}
+h2{font-size:clamp(23px,3.4vw,31px);padding-bottom:12px;border-bottom:2px solid var(--line);margin-bottom:8px}
+h2 .n{font-family:var(--mono);font-size:14px;color:var(--gold);margin-right:10px;font-weight:400}
+h3{font-size:20px;margin:26px 0 10px;color:var(--purple)}
+p{margin:10px 0}
+.lead{font-size:16.5px}
+strong{color:var(--ink);font-weight:700}
+em{color:var(--purple);font-style:italic}
+a{color:var(--purple);text-decoration:underline;text-underline-offset:2px}
+ul,ol{margin:10px 0 10px 22px}li{margin:6px 0}
+
+.note{background:var(--paper-2);border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:10px;padding:14px 18px;margin:16px 0;font-size:14.5px}
+.note.warn{border-left-color:var(--red);background:#fdf6f4}
+.note.win{border-left-color:var(--green);background:#f4f8f5}
+.note b{color:var(--ink)}
+
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:13.5px;background:var(--card);border-radius:10px;overflow:hidden;box-shadow:0 2px 10px rgba(36,26,48,.05)}
+th{background:var(--purple);color:#F6F1E8;text-align:left;padding:11px 13px;font-size:12px;letter-spacing:.03em;font-weight:600}
+td{padding:11px 13px;border-top:1px solid var(--line);vertical-align:top}
+tr:nth-child(even) td{background:var(--paper-2)}
+.tag{display:inline-block;font-family:var(--mono);font-size:10px;padding:2px 7px;border-radius:5px;background:rgba(176,135,63,.14);color:var(--gold);border:1px solid rgba(176,135,63,.3);white-space:nowrap}
+.tag.g{background:rgba(26,92,58,.1);color:var(--green);border-color:rgba(26,92,58,.3)}
+.tag.p{background:rgba(62,32,94,.1);color:var(--purple);border-color:rgba(62,32,94,.3)}
+
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0}
+.fcard{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;box-shadow:0 2px 10px rgba(36,26,48,.05)}
+.fcard h4{font-family:var(--serif);font-size:17px;color:var(--purple);margin-bottom:4px}
+.fcard .who{font-family:var(--mono);font-size:11px;color:var(--muted);margin-bottom:8px}
+.fcard p{font-size:13.5px;margin:6px 0}
+
+.concept{background:var(--card);border:1px solid var(--line-2);border-radius:var(--r);padding:0;margin:22px 0;overflow:hidden;box-shadow:0 4px 18px rgba(36,26,48,.07)}
+.concept .ch{padding:16px 20px;background:linear-gradient(120deg,var(--purple),#2A1642);color:#F6F1E8}
+.concept.glow .ch{background:linear-gradient(120deg,#8a5a1e,#B0873F)}
+.concept.slim .ch{background:linear-gradient(120deg,#17432b,#1A5C3A)}
+.concept .ch .k{font-family:var(--mono);font-size:11px;letter-spacing:.12em;opacity:.85;text-transform:uppercase}
+.concept .ch h4{font-family:var(--serif);font-size:21px;margin-top:3px}
+.concept .cb{padding:18px 20px}
+.concept .why{font-size:13.5px;color:var(--ink-2);margin-bottom:8px}
+
+.script{width:100%;font-size:13px;border-collapse:collapse;margin:12px 0}
+.script th{background:var(--ink);font-size:11px}
+.script td{border-top:1px solid var(--line)}
+.script td:first-child{font-family:var(--mono);color:var(--gold);white-space:nowrap;width:58px;font-size:11px}
+.script .vo{color:var(--ink);font-weight:600}
+.script .ost{color:var(--purple);font-size:12px}
+
+.prompt{position:relative;margin:12px 0}
+.prompt .lbl{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:5px;display:flex;align-items:center;gap:8px}
+.prompt .lbl .pill{background:rgba(62,32,94,.1);color:var(--purple);padding:1px 7px;border-radius:5px;border:1px solid rgba(62,32,94,.25)}
+.prompt pre{background:#1c1726;color:#e8e3ee;border-radius:10px;padding:14px 16px;padding-right:72px;font-family:var(--mono);font-size:12px;line-height:1.55;white-space:pre-wrap;word-break:break-word;overflow:hidden}
+.prompt pre .hl{color:var(--gold-2)}
+.copy{position:absolute;top:30px;right:10px;background:rgba(255,255,255,.1);color:#e8e3ee;border:1px solid rgba(255,255,255,.2);border-radius:7px;padding:5px 10px;font-size:11px;font-family:var(--mono);cursor:pointer;transition:.2s}
+.copy:hover{background:rgba(216,179,100,.25);border-color:var(--gold-2)}
+.copy.done{background:var(--green);border-color:var(--green);color:#fff}
+
+.toc{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px 20px;margin:24px 0;columns:2;column-gap:28px}
+.toc a{display:block;font-size:13.5px;margin:5px 0;text-decoration:none;color:var(--ink-2);break-inside:avoid}
+.toc a:hover{color:var(--purple)}
+.toc a span{font-family:var(--mono);color:var(--gold);font-size:11px;margin-right:7px}
+
+.foot{margin-top:60px;padding-top:20px;border-top:1px solid var(--line);font-size:12.5px;color:var(--muted)}
+@media(max-width:640px){.cards{grid-template-columns:1fr}.toc{columns:1}.wrap{padding:32px 16px 80px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="meta">NEXXGENE · ARANTYA LIFESTYLE · CREATIVE PLAYBOOK · NOV 2026</div>
+<h1>The Creative War Room</h1>
+<p class="sub">Competitor ad teardown + ready-to-shoot AI-video scripts and generation prompts for <strong>Super Glow</strong> and <strong>Super Slim</strong>. Built from live Meta Ad Library data (India).</p>
+
+<div class="toc">
+  <a href="#how"><span>00</span>How to use this</a>
+  <a href="#land"><span>01</span>Competitive landscape</a>
+  <a href="#land1b"><span>01b</span>Proven winners by run-time</a>
+  <a href="#formats"><span>02</span>The 5 winning formats</a>
+  <a href="#edge"><span>03</span>Your unfair advantages</a>
+  <a href="#rules"><span>04</span>Compliance guardrails</a>
+  <a href="#glow"><span>05</span>Super Glow — 3 scripts</a>
+  <a href="#slim"><span>06</span>Super Slim — 3 scripts</a>
+  <a href="#convert"><span>07</span>Turning views into buyers</a>
+  <a href="#workflow"><span>08</span>Production workflow</a>
+</div>
+
+<section id="how">
+<h2><span class="n">00</span>How to use this</h2>
+<p class="lead">Each concept below gives you three things: a <strong>shot-by-shot script</strong> (voiceover + on-screen text), a <strong>ChatGPT / DALL·E image prompt</strong> for the key frame or product shot, and a <strong>Google Flow / Veo video prompt</strong> for motion. Copy a prompt, paste it in, generate, then assemble in your editor.</p>
+<div class="note"><b>Method & honesty note.</b> I read the live Meta Ad Library for India: who is advertising, their exact hooks and offers, and how many ad variants they're running (high variant count = a format that's paying off, so they scale it). I <b>cannot</b> see competitors' actual video footage or their ROAS from here. To watch the real videos, open <a href="https://www.facebook.com/ads/library/">facebook.com/ads/library</a>, set country = India, and search the brand names in section 01. <b>I tried to pull the footage directly and couldn't</b> — facebook.com is outside my environment's network — so watching is on you, but section 01b flags which ads are worth your time.</p>
+<div class="note win"><b>Lock your product reference first.</b> Before generating any video, make <b>one</b> clean product still (or photograph your real jar/sachet) and reuse it as the image reference in every Flow/Veo generation. This keeps the pack, cap and label identical across all clips — the #1 thing that makes AI video look professional instead of fake.</div>
+</section>
+
+<section id="land">
+<h2><span class="n">01</span>Competitive landscape — who's actually spending</h2>
+<p>Pulled live from Meta Ad Library (India, active ads). These are your real rivals and the exact angles they're buying traffic on.</p>
+
+<h3>Super Glow's arena — collagen &amp; skin glow</h3>
+<table>
+<tr><th>Brand</th><th>Their hook / positioning</th><th>Format signal</th></tr>
+<tr><td><strong>Chicnutrix</strong></td><td>"8000mg Pure Japanese Marine Collagen" · "8g Marine Collagen for Maximum Impact 🌊"</td><td><span class="tag">High variant volume</span> dose-led</td></tr>
+<tr><td><strong>Miduty</strong></td><td>"The Missing Piece: <em>Absorption</em> · 2X Better Cell Uptake · Pure, Strong, Well Absorbed · See the Glow in 8 Weeks"</td><td><span class="tag p">Science / absorption</span></td></tr>
+<tr><td><strong>Wellbeing Nutrition</strong></td><td>Premium "science behind radiant skin" positioning</td><td><span class="tag p">Premium science</span></td></tr>
+<tr><td><strong>Pilgrim</strong></td><td>"Bright Skin Starts Here ✨"</td><td><span class="tag">Lifestyle / beauty</span></td></tr>
+<tr><td><strong>Beautywise</strong></td><td>"Collagen in delicious flavours" · also runs "Shed Inches in 12 Weeks"</td><td><span class="tag">Flavour / taste</span></td></tr>
+<tr><td><strong>The Body Love</strong></td><td>"Buy 2 for ₹1,799 + FREE Mask" · "Diwali: Buy 1 Get 1 FREE"</td><td><span class="tag">Offer / bundle</span></td></tr>
+<tr><td><strong>Plix · Niconi · The Wellness Shop</strong></td><td>"Glow In Every Sip" · effervescent / sip ritual</td><td><span class="tag">ASMR / ritual</span></td></tr>
+</table>
+
+<h3>Super Slim's arena — metabolism &amp; L-carnitine</h3>
+<table>
+<tr><th>Brand</th><th>Their hook / positioning</th><th>Format signal</th></tr>
+<tr><td><strong>Fast&amp;Up</strong> (direct rival)</td><td>"Carnilean 2000mg L-Carnitine" · "Lose Weight with L-Carnitine" · "Lose 4 Kilos in 4 Weeks"</td><td><span class="tag">High volume</span> dose + timeline</td></tr>
+<tr><td><strong>Vaidban · Fit&amp;Fresh (Slim Veda)</strong></td><td>"Ayurvedic Weight Loss Formula for Fat Metabolism"</td><td><span class="tag">Ayurvedic trust</span></td></tr>
+<tr><td><strong>Beautywise</strong></td><td>"Shed Inches in 12 Weeks" · "Use Code: SHARK20" (Shark Tank halo)</td><td><span class="tag">Timeline + authority</span></td></tr>
+<tr><td><strong>US reference (Patrick Walsh)</strong></td><td>"TO MEN WHO'VE BEEN TOLD FATTY LIVER ISN'T A BIG DEAL"</td><td><span class="tag p">Long-form VSL</span></td></tr>
+</table>
+<div class="note win"><b>The gap everyone leaves open:</b> they all shout <em>milligrams</em> (8000mg! 2000mg!) — nobody owns <em>absorption</em>. One ad even runs <em>"[1500mg] — not the [500mg] everyone hides behind."</em> Dose is a shouting match; <strong>bioavailability is an empty throne.</strong> That throne is yours: &lt;2,000 Da peptides, 98.4% uptake, OPITAC™ glutathione, Eurofins-clean.</div>
+
+<h3 id="land1b">01b · Proven winners, read by run-time</h3>
+<p>Brands kill losing creative fast, so <strong>an ad still active after ~50 days is paying for itself.</strong> Here's what the Ad Library timestamps say, as of 5 Nov 2026:</p>
+<table>
+<tr><th>Days live</th><th>Brand · angle</th><th>Verdict</th></tr>
+<tr><td><strong>64.5</strong></td><td><strong>Fast&amp;Up</strong> — L-Carnitine <em>ingredient/dose</em> angle (re-fed at 42d, 22d, 9d)</td><td><span class="tag g">PROVEN evergreen</span> your Slim rival's real winner</td></tr>
+<tr><td>92.8</td><td>Keeros — "Save 30%" offer (healthy snacks, adjacent category)</td><td><span class="tag g">Proven</span> offer-led</td></tr>
+<tr><td>2.5</td><td>Fast&amp;Up — "Lose 4 Kilos in 4 Weeks" (timeline claim)</td><td><span class="tag" style="background:#fdeaea;color:#9B2C2C;border-color:#e4b4b4">Unproven test</span> &amp; non-compliant</td></tr>
+<tr><td>&lt;2</td><td>All of collagen/glow — Chicnutrix, Miduty, Pilgrim, Plix, Wellbeing, The Body Love</td><td><span class="tag">Fresh creative</span> high-velocity category</td></tr>
+</table>
+<div class="note win"><b>Two things this proves.</b> (1) <b>Go dose/ingredient-led, not timeline-promise-led.</b> Fast&amp;Up's 64-day survivor is the L-Carnitine <em>dose</em> story; their "lose 4kg in 4 weeks" is a 2-day-old gamble. Your Super Slim Concept A is aimed exactly right. (2) <b>The glow category rewards volume.</b> Every live collagen ad is days old — these brands refresh constantly, so win on <em>creative velocity</em> (ship many hooks) while owning the one durable positioning they've left open: <em>absorption</em>.</div>
+<div class="note"><b>Caveat on the method:</b> a brand that duplicates or refreshes a creative resets its timestamp, so read run-time at the <em>angle</em> level (Fast&amp;Up's L-Carnitine story persists across many refreshes = evergreen) rather than trusting any single ad's date. To find a specific competitor's oldest survivors, open their page in the Ad Library and scan for the earliest "Started running on" dates still marked Active.</div>
+</section>
+
+<section id="formats">
+<h2><span class="n">02</span>The 5 AI-video formats that are working</h2>
+<p>What the category is buying traffic on — and what AI video (Veo / Flow / Sora) can now produce cheaply.</p>
+<div class="cards">
+  <div class="fcard"><h4>1. The Dose/Absorption Exposé</h4><div class="who">Miduty, Chicnutrix, the "1500mg vs 500mg" ad</div><p>Number-on-screen, myth-busting, "they hide this" energy. <strong>AI makes this easy:</strong> molecular viz of peptides passing (or failing to pass) through the gut wall.</p></div>
+  <div class="fcard"><h4>2. UGC Talking-Head Testimonial</h4><div class="who">Everyone — the workhorse format</div><p>Real-feeling person: problem → discovery → result. <strong>AI avatars</strong> now do this; or film one real creator and cut 10 hooks.</p></div>
+  <div class="fcard"><h4>3. ASMR Ritual / "Glow in every sip"</h4><div class="who">Plix, Niconi, The Wellness Shop</div><p>Satisfying macro: sachet tear, pour, dissolve, first sip. <strong>AI excels</strong> at hyper-real macro liquid + product shots.</p></div>
+  <div class="fcard"><h4>4. Problem-Agitate VSL</h4><div class="who">Patrick Walsh (US), Ayurvedic pages</div><p>"If you've been told X…" — names a daily pain (3 PM crash, dull skin), agitates, resolves. Longer, great for cold retargeting.</p></div>
+  <div class="fcard"><h4>5. Offer / Festive Urgency</h4><div class="who">The Body Love, Beautywise (BOGO, SHARK20)</div><p>Bundle, BOGO, countdown. Lowest creative lift, best for bottom-funnel &amp; retargeting — not for cold prospecting.</p></div>
+</div>
+<p>Your plan: lead cold traffic with <strong>#1 (Absorption Exposé)</strong> and <strong>#2 (UGC)</strong>; use <strong>#3 (ASMR)</strong> for thumb-stopping reach; retarget with <strong>#4 (VSL)</strong> and <strong>#5 (Offer)</strong>.</p>
+</section>
+
+<section id="edge">
+<h2><span class="n">03</span>Your unfair advantages — the wedges to hammer</h2>
+<table>
+<tr><th>Wedge</th><th>The line to say in ads</th><th>Beats…</th></tr>
+<tr><td><strong>&lt;2,000 Da absorption</strong></td><td>"8,000mg you can't absorb is 8,000mg you flush away. Ours is sized at under 2,000 Daltons — small enough to actually get in."</td><td>Chicnutrix's 8000mg claim</td></tr>
+<tr><td><strong>OPITAC™ glutathione</strong></td><td>"Japanese OPITAC™ glutathione — the clarity actives most 'glow' drinks skip."</td><td>generic collagen</td></tr>
+<tr><td><strong>Eurofins · 0.00% metals</strong></td><td>"Third-party tested by Eurofins. Zero heavy metals. You're drinking this every day — purity isn't optional."</td><td>untested imports</td></tr>
+<tr><td><strong>Clinically-dosed Slim</strong></td><td>"1,500mg active L-Carnitine — the clinical dose, not a sprinkle for the label."</td><td>under-dosed rivals</td></tr>
+<tr><td><strong>24-Hour system</strong></td><td>"Energy by day, repair by night. One protocol, all 24 hours."</td><td>single-SKU brands</td></tr>
+</table>
+</section>
+
+<section id="rules">
+<h2><span class="n">04</span>Compliance guardrails (read before you write a word)</h2>
+<div class="note warn"><b>This protects your ad account and your brand from ₹10L FSSAI penalties.</b> Fast&amp;Up and Beautywise run "Lose 4 kilos in 4 weeks" / "Shed inches in 12 weeks" — timeline + weight-loss promises. They're gambling; don't copy them.</div>
+<ul>
+<li><strong>No timeline or guaranteed outcomes</strong> ("lose X kg in Y days", "guaranteed glow"). Meta rejects these and FSSAI penalises them.</li>
+<li><strong>No disease claims</strong> (cure, treat, detox-as-medicine). Marine-collagen <em>skin</em> claims are far safer than <em>weight-loss</em> claims.</li>
+<li><strong>Super Slim creative needs 18+ targeting</strong> — any fat/weight framing triggers it. Frame Slim as <em>metabolic energy / feeling lighter / beating the slump</em>, not fat-loss promises.</li>
+<li><strong>Don't use the FSSAI logo/licence as a promo badge</strong> — FSSAI prohibits it. "Third-party Eurofins tested" is your safe trust line.</li>
+<li><strong>Testimonials need "results vary" framing.</strong> Avoid pinched-fat / body-shaming visuals entirely.</li>
+<li><strong>Safe verbs:</strong> supports, helps, formulated for, visibly, feel. <strong>Banned verbs:</strong> cures, guarantees, melts, burns fat, detoxes.</li>
+</ul>
+</section>
+
+<!-- ================= SUPER GLOW ================= -->
+<section id="glow">
+<h2><span class="n">05</span>Super Glow — 3 ready-to-shoot scripts</h2>
+<p>Product reference to reuse in every prompt: <em>a heavy amber borosilicate glass jar with a brushed rose-gold metal lid and a minimalist cream label reading "NEXXGENE · SUPER GLOW", beside a matte champagne-gold single-dose foil sachet.</em></p>
+
+<!-- GLOW CONCEPT A -->
+<div class="concept glow">
+  <div class="ch"><div class="k">Concept A · Format #1 Absorption Exposé · 25s · cold traffic hero</div><h4>"8,000mg you can't absorb is just expensive pee."</h4></div>
+  <div class="cb">
+    <p class="why"><strong>Why this wins:</strong> it reframes the entire category's milligram arms race as a weakness, and lands your &lt;2,000 Da wedge in the first 3 seconds. Directly counters Chicnutrix &amp; Miduty.</p>
+    <table class="script">
+      <tr><th>Time</th><th>Voiceover</th><th>Visual + on-screen text</th></tr>
+      <tr><td>0–3s</td><td class="vo">"Your ₹2,000 collagen might be going straight down the toilet."</td><td class="ost">Macro: golden collagen powder poured — then a red "8000mg?" stamp slams on. Hook text: <em>READ THIS BEFORE YOU BUY COLLAGEN</em></td></tr>
+      <tr><td>3–10s</td><td class="vo">"Most collagen molecules are 10–15,000 Daltons — too big to cross your gut wall. So they pass right through."</td><td class="ost">Science viz: large tangled molecules bouncing off a glowing gut-wall barrier. Text: <em>TOO BIG TO ABSORB</em></td></tr>
+      <tr><td>10–17s</td><td class="vo">"NEXXGENE Super Glow is hydrolysed under 2,000 Daltons — small enough to actually get in. 98.4% uptake."</td><td class="ost">Tiny bright peptides slip through the wall into glowing bloodstream. Jar appears. Text: <em>&lt;2,000 Da · 98.4% ABSORBED</em></td></tr>
+      <tr><td>17–22s</td><td class="vo">"Plus Japanese OPITAC™ glutathione. Eurofins-tested. Zero heavy metals."</td><td class="ost">Sachet pours into water → champagne-gold swirl. Badges flash: <em>OPITAC™ · EUROFINS · 0.00% METALS</em></td></tr>
+      <tr><td>22–25s</td><td class="vo">"Glow you can actually absorb. Super Glow."</td><td class="ost">Jar + sachet hero on warm ivory. Text: <em>SUPER GLOW · nexxgene.com</em></td></tr>
+    </table>
+    <div class="prompt"><div class="lbl"><span class="pill">IMAGE · ChatGPT / DALL·E</span> key science frame</div>
+<pre>Editorial product-science still, warm ivory studio background. On the left, a cluster of <span class="hl">large tangled blue protein molecules</span> bouncing OFF a glowing translucent membrane wall. On the right, <span class="hl">tiny bright gold peptide dots passing THROUGH</span> the same membrane into a soft golden glow. Centered: a heavy amber borosilicate glass jar with a brushed rose-gold lid, cream label "NEXXGENE SUPER GLOW". Clean clinical-luxury aesthetic, soft champagne lighting, shallow depth of field, lots of negative space, no text. 9:16 vertical.</pre><button class="copy">Copy</button></div>
+    <div class="prompt"><div class="lbl"><span class="pill">VIDEO · Google Flow / Veo</span> absorption motion, 8s</div>
+<pre>Macro cinematic shot, 9:16 vertical. Hundreds of <span class="hl">tiny glowing gold peptide particles drift toward a translucent cell membrane and slip through it</span>, dissolving into a warm radiant golden bloom on the other side. In contrast, a few large blue clumps bounce off and fall away. Slow dolly-in, volumetric champagne light, soft caustics, premium clinical-beauty mood, shallow depth of field. Subtle shimmer and a soft low "whoosh" as particles pass through. No text, no logos.</pre><button class="copy">Copy</button></div>
+    <div class="prompt"><div class="lbl"><span class="pill">VIDEO · Flow / Veo</span> sachet pour, 6s</div>
+<pre>Extreme macro, 9:16. A matte champagne-gold foil sachet labeled "SUPER GLOW" tips over a clear glass of water; <span class="hl">a ribbon of golden liquid swirls and dissolves</span> into a glowing champagne-gold vortex. Water-droplet detail, backlit, warm ivory background, luxury skincare-ad lighting, 120fps slow-motion feel, crisp bubbles. Gentle ASMR pour-and-fizz audio. No text.</pre><button class="copy">Copy</button></div>
+  </div>
+</div>
+
+<!-- GLOW CONCEPT B -->
+<div class="concept glow">
+  <div class="ch"><div class="k">Concept B · Format #2 UGC Testimonial · 30s · workhorse</div><h4>"I stopped buying collagen for a year. Here's why I'm back."</h4></div>
+  <div class="cb">
+    <p class="why"><strong>Why this wins:</strong> the "skeptic returns" angle out-trusts generic praise. Film one real woman (28–40) selfie-style, or use an AI avatar. Shoot 5 different first-line hooks on the same body.</p>
+    <table class="script">
+      <tr><th>Time</th><th>Voiceover (UGC, casual)</th><th>Visual + on-screen text</th></tr>
+      <tr><td>0–4s</td><td class="vo">"I quit collagen for a whole year — because I found out most of it doesn't even absorb."</td><td class="ost">Selfie, natural morning light, bare skin. Text: <em>the collagen truth nobody tells you</em></td></tr>
+      <tr><td>4–12s</td><td class="vo">"Turns out the molecule size is everything. If it's over 2,000 Daltons it's too big to get in. I had no idea."</td><td class="ost">She holds the Super Glow jar, turns the label. Text: <em>&lt;2,000 Da = actually absorbs</em></td></tr>
+      <tr><td>12–22s</td><td class="vo">"This one's under 2,000, plus Japanese glutathione. I mix one sachet every night. Eight weeks in…"</td><td class="ost">Night-time sachet-into-water ritual → cut to glowing morning skin. Text: <em>8 weeks · results vary</em></td></tr>
+      <tr><td>22–30s</td><td class="vo">"…my skin just looks lit from inside. I'm not switching again."</td><td class="ost">Close-up dewy skin, smile. Jar end-card. Text: <em>SUPER GLOW · 90-day money-back</em></td></tr>
+    </table>
+    <div class="prompt"><div class="lbl"><span class="pill">IMAGE · ChatGPT / DALL·E</span> UGC avatar reference</div>
+<pre>Authentic iPhone-style selfie, Indian woman aged 30, natural glowing skin, minimal makeup, soft morning window light in a real bedroom, holding an amber glass jar with rose-gold lid labeled "NEXXGENE SUPER GLOW". Candid, slightly imperfect UGC look (not studio), warm tones, 9:16 vertical. Realistic skin texture, friendly expression.</pre><button class="copy">Copy</button></div>
+    <div class="prompt"><div class="lbl"><span class="pill">VIDEO · Flow / Veo</span> talking-head, 8s</div>
+<pre>Vertical 9:16 UGC selfie video. An Indian woman ~30 with radiant bare skin talks warmly and directly to camera in soft morning window light, holding an amber glass jar with a rose-gold lid. Handheld micro-movement, authentic home bedroom background softly blurred, natural audio tone. Realistic, relatable, not polished or corporate. She gestures naturally while speaking. No on-screen text.</pre><button class="copy">Copy</button></div>
+    <div class="prompt"><div class="lbl"><span class="pill">VIDEO · Flow / Veo</span> night ritual → morning glow, 6s</div>
+<pre>Two-shot sequence, 9:16. First: dim warm bathroom at night, hands tear a gold sachet and stir it into a glass of water, golden swirl. Hard cut to: same woman next morning in bright daylight, close-up of luminous dewy skin catching the light, subtle smile. Cinematic beauty-ad color grade, warm-to-bright transition. Gentle uplifting ambient audio. No text.</pre><button class="copy">Copy</button></div>
+  </div>
+</div>
+
+<!-- GLOW CONCEPT C -->
+<div class="concept glow">
+  <div class="ch"><div class="k">Concept C · Format #3 ASMR Ritual · 15s · reach / thumb-stop</div><h4>"The 10-second evening glow ritual."</h4></div>
+  <div class="cb">
+    <p class="why"><strong>Why this wins:</strong> pure sensory scroll-stopper, no claims to police, infinitely remixable. Best top-funnel reach play and cheapest to produce with AI macro.</p>
+    <table class="script">
+      <tr><th>Time</th><th>Audio</th><th>Visual + on-screen text</th></tr>
+      <tr><td>0–3s</td><td class="vo">ASMR tear + crisp foil</td><td class="ost">Extreme macro: fingers tear the gold sachet. Text: <em>POV: your 8pm glow ritual</em></td></tr>
+      <tr><td>3–9s</td><td class="vo">Pour + fizz + stir</td><td class="ost">Golden powder cascades into water, swirls into champagne-gold. Condensation on glass.</td></tr>
+      <tr><td>9–13s</td><td class="vo">Soft sip</td><td class="ost">Backlit sip, warm glow on skin. Text: <em>&lt;2,000 Da · absorbs in 45 min</em></td></tr>
+      <tr><td>13–15s</td><td class="vo">Chime</td><td class="ost">Jar + sachet hero. Text: <em>SUPER GLOW</em></td></tr>
+    </table>
+    <div class="prompt"><div class="lbl"><span class="pill">VIDEO · Flow / Veo</span> full ASMR macro, 8s</div>
+<pre>Hyper-real extreme macro, 9:16, luxury-beauty ASMR. Elegant hands tear open a matte champagne-gold foil sachet; <span class="hl">fine golden powder cascades in slow motion into a crystal glass of still water and blooms into a swirling champagne-gold liquid</span>. Tiny bubbles rise, condensation beads on the glass, a frosted amber jar sits softly out of focus behind. Warm ivory backdrop, volumetric backlight, 120fps slow-motion, shallow depth of field. Crisp ASMR audio: foil tear, soft pour, gentle fizz. No text, no logos.</pre><button class="copy">Copy</button></div>
+  </div>
+</div>
+</section>
+
+<!-- ================= SUPER SLIM ================= -->
+<section id="slim">
+<h2><span class="n">06</span>Super Slim — 3 ready-to-shoot scripts</h2>
+<div class="note warn"><b>Compliance mode ON.</b> These are written as <em>energy / metabolism / anti-slump</em>, not fat-loss promises — safer for Meta and FSSAI. Still set 18+ targeting on any Slim campaign. Product reference: <em>a frosted glass canister with a gunmetal-and-gold lid, cream label "NEXXGENE · SUPER SLIM", with a crisp sage-green effervescent drink.</em></p></div>
+
+<!-- SLIM CONCEPT A -->
+<div class="concept slim">
+  <div class="ch"><div class="k">Concept A · Format #1 Dose Exposé · 22s · cold hero</div><h4>"1,500mg. Not the 500mg they hide on the back of the label."</h4></div>
+  <div class="cb">
+    <p class="why"><strong>Why this wins:</strong> turns the "clinical dose" into a callout of under-dosed rivals — the exact angle a competitor manufacturer is already testing ("1500mg, not the 500mg everyone hides"). You own it with real numbers.</p>
+    <table class="script">
+      <tr><th>Time</th><th>Voiceover</th><th>Visual + on-screen text</th></tr>
+      <tr><td>0–3s</td><td class="vo">"Most 'metabolism' drinks give you 500mg of L-Carnitine and hope you don't check."</td><td class="ost">Macro: a label's tiny "500mg" magnified under a loupe. Text: <em>CHECK THE DOSE</em></td></tr>
+      <tr><td>3–10s</td><td class="vo">"L-Carnitine is what shuttles fat into your cells' engines to be burned for energy. Under-dose it and nothing happens."</td><td class="ost">Science viz: fatty acids ferried into glowing mitochondria that light up. Text: <em>FUEL → ENERGY</em></td></tr>
+      <tr><td>10–16s</td><td class="vo">"Super Slim gives you the full 1,500mg clinical dose — with Garcinia and EGCG."</td><td class="ost">Canister appears, sage-green fizz. Text: <em>1,500mg · CLINICAL DOSE · 0g SUGAR</em></td></tr>
+      <tr><td>16–22s</td><td class="vo">"Clean morning energy you can actually feel. Super Slim."</td><td class="ost">Sage-green drink poured over ice, condensation. End-card. Text: <em>SUPER SLIM · nexxgene.com</em></td></tr>
+    </table>
+    <div class="prompt"><div class="lbl"><span class="pill">IMAGE · ChatGPT / DALL·E</span> mitochondria science frame</div>
+<pre>Clean product-science still, cool bright studio. Center: a frosted glass canister with a gunmetal-and-gold lid, label "NEXXGENE SUPER SLIM". Around it, a stylised viz of <span class="hl">golden fatty-acid droplets being ferried into glowing emerald mitochondria that light up like tiny engines</span>. Crisp sage-green and cyan accents, fresh energetic mood, water splash elements, soft daylight, shallow depth of field, lots of negative space, no text. 9:16 vertical.</pre><button class="copy">Copy</button></div>
+    <div class="prompt"><div class="lbl"><span class="pill">VIDEO · Flow / Veo</span> mitochondria ignite, 8s</div>
+<pre>Macro cinematic 9:16. <span class="hl">Golden droplets of fatty acid are shuttled through a glowing channel into emerald-green mitochondria that ignite one by one into bright little furnaces</span>, releasing clean energy ripples. Cool clinical-but-vibrant lighting, sage-green and cyan palette, volumetric glow, slow dolly-in, shallow depth of field. Subtle energising electric hum audio. No text, no logos.</pre><button class="copy">Copy</button></div>
+    <div class="prompt"><div class="lbl"><span class="pill">VIDEO · Flow / Veo</span> fizz over ice, 6s</div>
+<pre>Extreme macro, 9:16. A frosted canister labeled "SUPER SLIM" tips sage-green effervescent powder into a tall glass of iced water; <span class="hl">vivid green fizz erupts and swirls over clear ice cubes</span>, bubbles racing up, condensation on glass. Bright fresh daylight, crisp energetic beverage-ad look, 120fps slow motion. Satisfying fizz-and-ice ASMR audio. No text.</pre><button class="copy">Copy</button></div>
+  </div>
+</div>
+
+<!-- SLIM CONCEPT B -->
+<div class="concept slim">
+  <div class="ch"><div class="k">Concept B · Format #4 Problem-Agitate · 30s · cold / retarget</div><h4>"The 3 PM crash isn't about sleep. It's about fuel."</h4></div>
+  <div class="cb">
+    <p class="why"><strong>Why this wins:</strong> names a daily pain every working Indian adult feels, then reframes it around your mechanism — no weight-loss claim needed. Strong story arc for retargeting.</p>
+    <table class="script">
+      <tr><th>Time</th><th>Voiceover</th><th>Visual + on-screen text</th></tr>
+      <tr><td>0–4s</td><td class="vo">"If you crash every afternoon and reach for your third coffee — this is for you."</td><td class="ost">Relatable b-roll: tired woman at desk, 3:00 PM clock. Text: <em>the 3 PM crash</em></td></tr>
+      <tr><td>4–13s</td><td class="vo">"That slump isn't laziness. Your cells aren't converting fuel into energy efficiently — and sugar just makes it worse."</td><td class="ost">Sugar crash line-graph dropping. Text: <em>sugar = spike then crash</em></td></tr>
+      <tr><td>13–22s</td><td class="vo">"Super Slim uses 1,500mg L-Carnitine to help your cells turn fat into clean energy — zero sugar, no jitters."</td><td class="ost">Morning ritual: green drink, then same woman energised on a walk. Text: <em>1,500mg · 0g sugar</em></td></tr>
+      <tr><td>22–30s</td><td class="vo">"Trade the crash for steady energy. One glass every morning."</td><td class="ost">End-card canister. Text: <em>SUPER SLIM · 90-day money-back · results vary</em></td></tr>
+    </table>
+    <div class="prompt"><div class="lbl"><span class="pill">VIDEO · Flow / Veo</span> relatable crash b-roll, 8s</div>
+<pre>Vertical 9:16 cinematic lifestyle. An Indian woman ~32 at a home-office desk in mid-afternoon light slumps, rubs her eyes, stares at a cold coffee; a wall clock reads 3:00. Realistic, slightly desaturated tired mood, handheld feel, relatable not glamorous. Then a flicker of brighter light as she glances off-camera. Natural ambient room audio. No text.</pre><button class="copy">Copy</button></div>
+    <div class="prompt"><div class="lbl"><span class="pill">VIDEO · Flow / Veo</span> energised payoff, 6s</div>
+<pre>Vertical 9:16. Same woman next morning, bright and energised, sage-green drink in hand on a sunlit balcony, then walking briskly and smiling in warm daylight. Vibrant, fresh, healthy color grade, light breeze, natural movement. Uplifting subtle audio. No text, no logos.</pre><button class="copy">Copy</button></div>
+  </div>
+</div>
+
+<!-- SLIM CONCEPT C -->
+<div class="concept slim">
+  <div class="ch"><div class="k">Concept C · Format #3 ASMR Ritual · 15s · reach</div><h4>"Your 8 AM energy ritual."</h4></div>
+  <div class="cb">
+    <p class="why"><strong>Why this wins:</strong> pairs with Glow's evening ritual to tell the <strong>24-hour AM/PM system</strong> story across two ads — reinforces the bundle.</p>
+    <table class="script">
+      <tr><th>Time</th><th>Audio</th><th>Visual + on-screen text</th></tr>
+      <tr><td>0–3s</td><td class="vo">ASMR ice drop</td><td class="ost">Macro: ice drops into a tall glass. Text: <em>POV: 8am, before the chaos</em></td></tr>
+      <tr><td>3–10s</td><td class="vo">Fizz + pour</td><td class="ost">Sage-green powder hits water, vivid fizz races up over ice.</td></tr>
+      <tr><td>10–15s</td><td class="vo">Crisp sip + chime</td><td class="ost">Backlit sip, fresh morning window. Text: <em>SUPER SLIM · 1,500mg · 0g sugar</em></td></tr>
+    </table>
+    <div class="prompt"><div class="lbl"><span class="pill">VIDEO · Flow / Veo</span> full AM ASMR, 8s</div>
+<pre>Hyper-real extreme macro, 9:16, fresh energetic ASMR. Ice cubes drop into a tall clear glass; a frosted "SUPER SLIM" canister pours <span class="hl">vivid sage-green effervescent powder that erupts into racing green fizz over the ice</span>, bubbles streaming upward, heavy condensation. Bright morning window light, cool fresh palette, 120fps slow motion, shallow depth of field. Crisp ASMR: ice clink, fizz, pour. No text, no logos.</pre><button class="copy">Copy</button></div>
+  </div>
+</div>
+</section>
+
+<section id="convert">
+<h2><span class="n">07</span>Turning views into buyers</h2>
+<ul>
+<li><strong>Hook in 3 seconds or lose them.</strong> Indian mobile feeds bounce in 4–5s. Lead with the number or the pain, never the logo. Make 5+ hook variants per concept — the hook is 80% of performance.</li>
+<li><strong>Caption the first line as on-screen text</strong> — 85% watch on mute. Every VO line above doubles as burned-in text.</li>
+<li><strong>Match the ad to the landing page.</strong> An "absorption" ad must hit a page that opens with absorption — your new light hero does this. Don't send a &lt;2,000 Da ad to a generic homepage.</li>
+<li><strong>Seed 30–50 reviews before you scale spend.</strong> Per the India D2C playbook, zero reviews is a bigger conversion leak than any ad tweak. Supplement sites with strong social proof convert ~6.8% vs ~1.5% baseline.</li>
+<li><strong>Offer structure:</strong> cold traffic → single SKU + free shipping over ₹1,499; retargeting → the 24H bundle (Save ₹399) + BOGO on festivals (what The Body Love is winning with).</li>
+<li><strong>COD + 90-day guarantee stated on the ad end-card</strong> — removes the two biggest Indian purchase frictions.</li>
+<li><strong>Testing matrix:</strong> run 3 concepts × 3 hooks each (9 ads) in one ad set, ₹1,500–2,000/day, let it run 4–5 days before judging. Kill the bottom, reshoot hooks on the winner.</li>
+</ul>
+<div class="note"><b>Reality check on spend (from the India D2C playbook):</b> a new nutra brand realistically sees <b>1.4–2.1x ROAS in month 1</b>, climbing to 2.8–3.6x by month 6 <em>once reviews exist</em>. At ₹30–60k/month you won't clear Meta's 50-conversions/week learning threshold, so consolidate into one campaign / one ad set and optimise for Add-to-Cart early. Anyone promising 4x+ out of the gate is selling, not forecasting.</div>
+</section>
+
+<section id="workflow">
+<h2><span class="n">08</span>Production workflow — from prompt to posted ad</h2>
+<ol>
+<li><strong>Lock the product reference.</strong> Generate one clean jar + one canister still (or shoot real ones). Save them — they're the image reference for every clip.</li>
+<li><strong>Generate stills in ChatGPT / DALL·E</strong> using the IMAGE prompts. Pick the best frame per scene.</li>
+<li><strong>Animate in Google Flow / Veo</strong> using the VIDEO prompts; feed your product still as the reference image so packaging stays consistent. Generate 6–8s clips.</li>
+<li><strong>For talking-head UGC:</strong> either film one real creator (best trust) or use an AI avatar tool; keep the same person across hook variants.</li>
+<li><strong>Assemble in CapCut / Premiere:</strong> stack hook → science/story → product → CTA. Burn in the on-screen text. Add licensed music + SFX.</li>
+<li><strong>Caption everything</strong> (mute-first). Export 9:16 for Reels/Stories, plus a 1:1 and 4:5 variant for feed.</li>
+<li><strong>Ship 9 ads</strong> (3 concepts × 3 hooks) into one ad set and let the data pick the winner.</li>
+</ol>
+<div class="note win"><b>Want me to go further?</b> I can (1) write 5 hook variants for any concept you like, (2) script 2–3 more concepts per product, (3) draft the Meta primary-text + headline ad copy to pair with each video, or (4) build the ₹-level media plan &amp; testing calendar. Just say which.</div>
+</section>
+
+<div class="foot">
+NEXXGENE · Arantya Lifestyle — Creative War Room. Competitive data read live from the Meta Ad Library (India), Nov 2026; footage and spend not observable from source. Scripts written for FSSAI / Meta health-policy compliance. Benchmarks from the India D2C Meta playbook.
+</div>
+
+</div>
+<script>
+document.querySelectorAll('.copy').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    var pre=btn.parentElement.querySelector('pre');
+    var txt=pre.innerText;
+    navigator.clipboard.writeText(txt).then(function(){
+      btn.textContent='Copied';btn.classList.add('done');
+      setTimeout(function(){btn.textContent='Copy';btn.classList.remove('done');},1600);
+    }).catch(function(){
+      var r=document.createRange();r.selectNode(pre);
+      window.getSelection().removeAllRanges();window.getSelection().addRange(r);
+      try{document.execCommand('copy');btn.textContent='Copied';btn.classList.add('done');
+      setTimeout(function(){btn.textContent='Copy';btn.classList.remove('done');},1600);}catch(e){}
+      window.getSelection().removeAllRanges();
+    });
+  });
+});
+</script>
+</body>
+</html>

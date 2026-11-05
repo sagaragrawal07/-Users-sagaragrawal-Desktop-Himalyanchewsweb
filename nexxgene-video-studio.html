@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEXXGENE Video Studio</title>
+<style>
+:root{
+  --paper:#F4EEE1;--paper-2:#FBF8F1;--card:#FFFFFF;
+  --ink:#241A30;--ink-2:#574C60;--muted:#8A806F;
+  --purple:#3E205E;--gold:#B0873F;--gold-2:#D8B364;--green:#1A5C3A;--red:#9B2C2C;
+  --line:rgba(36,26,48,.12);--line-2:rgba(36,26,48,.2);
+  --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --serif:Georgia,"Times New Roman",serif;
+  --mono:"SF Mono",ui-monospace,"Cascadia Code",Consolas,monospace;
+  --r:14px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--paper);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:900px;margin:0 auto;padding:48px 24px 100px}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:600;letter-spacing:-.01em;line-height:1.15}
+h1{font-size:clamp(30px,5vw,46px);margin-bottom:10px}
+.sub{color:var(--ink-2);font-size:17px;max-width:640px}
+.meta{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:18px}
+section{margin-top:52px;scroll-margin-top:20px}
+h2{font-size:clamp(23px,3.4vw,31px);padding-bottom:12px;border-bottom:2px solid var(--line);margin-bottom:8px}
+h2 .n{font-family:var(--mono);font-size:14px;color:var(--gold);margin-right:10px;font-weight:400}
+h3{font-size:20px;margin:26px 0 10px;color:var(--purple)}
+h4{font-size:16px;margin:16px 0 6px}
+p{margin:10px 0}.lead{font-size:16.5px}
+strong{color:var(--ink);font-weight:700}em{color:var(--purple);font-style:italic}
+a{color:var(--purple);text-decoration:underline;text-underline-offset:2px}
+ul,ol{margin:10px 0 10px 22px}li{margin:6px 0}
+
+.note{background:var(--paper-2);border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:10px;padding:14px 18px;margin:16px 0;font-size:14.5px}
+.note.warn{border-left-color:var(--red);background:#fdf6f4}
+.note.win{border-left-color:var(--green);background:#f4f8f5}
+.note.fix{border-left-color:var(--purple);background:#f7f4fb}
+.note b{color:var(--ink)}
+
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:13.5px;background:var(--card);border-radius:10px;overflow:hidden;box-shadow:0 2px 10px rgba(36,26,48,.05)}
+th{background:var(--purple);color:#F6F1E8;text-align:left;padding:11px 13px;font-size:12px;font-weight:600}
+td{padding:10px 13px;border-top:1px solid var(--line);vertical-align:top}
+tr:nth-child(even) td{background:var(--paper-2)}
+.sys1 th{background:#8a5a1e}.sys2 th{background:#1A5C3A}
+.tag{display:inline-block;font-family:var(--mono);font-size:10px;padding:2px 7px;border-radius:5px;background:rgba(176,135,63,.14);color:var(--gold);border:1px solid rgba(176,135,63,.3);white-space:nowrap}
+.tag.g{background:rgba(26,92,58,.1);color:var(--green);border-color:rgba(26,92,58,.3)}
+.tag.p{background:rgba(62,32,94,.1);color:var(--purple);border-color:rgba(62,32,94,.3)}
+
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0}
+.fcard{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;box-shadow:0 2px 10px rgba(36,26,48,.05)}
+.fcard h4{font-family:var(--serif);font-size:16px;color:var(--purple);margin:0 0 4px}
+.fcard .who{font-family:var(--mono);font-size:11px;color:var(--muted);margin-bottom:8px}
+.fcard p{font-size:13px;margin:5px 0}
+
+.concept{background:var(--card);border:1px solid var(--line-2);border-radius:var(--r);margin:22px 0;overflow:hidden;box-shadow:0 4px 18px rgba(36,26,48,.07)}
+.concept .ch{padding:16px 20px;color:#F6F1E8;background:linear-gradient(120deg,var(--purple),#2A1642)}
+.concept.glow .ch{background:linear-gradient(120deg,#8a5a1e,#B0873F)}
+.concept.slim .ch{background:linear-gradient(120deg,#17432b,#1A5C3A)}
+.concept .ch .k{font-family:var(--mono);font-size:11px;letter-spacing:.1em;opacity:.85;text-transform:uppercase}
+.concept .ch h4{font-family:var(--serif);font-size:20px;margin-top:3px}
+.concept .cb{padding:18px 20px}
+.concept .why{font-size:13.5px;color:var(--ink-2);margin-bottom:8px}
+
+.script{width:100%;font-size:13px;border-collapse:collapse;margin:12px 0}
+.script th{background:var(--ink);font-size:11px}
+.script td:first-child{font-family:var(--mono);color:var(--gold);white-space:nowrap;width:54px;font-size:11px}
+.script .vo{color:var(--ink);font-weight:600}.script .ost{color:var(--purple);font-size:12px}
+
+.prompt{position:relative;margin:12px 0}
+.prompt .lbl{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:5px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.prompt .lbl .pill{background:rgba(62,32,94,.1);color:var(--purple);padding:1px 7px;border-radius:5px;border:1px solid rgba(62,32,94,.25)}
+.prompt pre{background:#1c1726;color:#e8e3ee;border-radius:10px;padding:14px 16px;padding-right:72px;font-family:var(--mono);font-size:12px;line-height:1.55;white-space:pre-wrap;word-break:break-word}
+.prompt pre .hl{color:var(--gold-2)}
+.copy{position:absolute;top:30px;right:10px;background:rgba(255,255,255,.1);color:#e8e3ee;border:1px solid rgba(255,255,255,.2);border-radius:7px;padding:5px 10px;font-size:11px;font-family:var(--mono);cursor:pointer;transition:.2s}
+.copy:hover{background:rgba(216,179,100,.25);border-color:var(--gold-2)}
+.copy.done{background:var(--green);border-color:var(--green);color:#fff}
+
+.toc{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px 20px;margin:24px 0;columns:2;column-gap:28px}
+.toc a{display:block;font-size:13.5px;margin:5px 0;text-decoration:none;color:var(--ink-2);break-inside:avoid}
+.toc a:hover{color:var(--purple)}
+.toc a span{font-family:var(--mono);color:var(--gold);font-size:11px;margin-right:7px}
+.foot{margin-top:60px;padding-top:20px;border-top:1px solid var(--line);font-size:12.5px;color:var(--muted)}
+@media(max-width:640px){.cards{grid-template-columns:1fr}.toc{columns:1}.wrap{padding:32px 16px 80px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="meta">NEXXGENE · ARANTYA LIFESTYLE · VIDEO STUDIO v2 (label-accurate) · NOV 2026</div>
+<h1>The Video Studio</h1>
+<p class="sub">Every ad concept, script and generation prompt — rebuilt from your <strong>printed back-panel labels</strong> and your <em>Epigenetic Nutrition</em> playbook. Accurate ingredients, accurate doses, accurate prices.</p>
+
+<div class="note fix"><b>What changed from v1.</b> The earlier scripts leaned on <code>&lt;2,000&nbsp;Da</code>, <code>98.4% absorption</code> and <code>OPITAC™ glutathione</code> from the draft briefing — <b>none of those are on your labels</b>, so they're gone. Prices corrected to <b>₹999 (Glow)</b> / <b>₹899 (Slim)</b>. The new hero angle is the one thing your competitors <em>can't</em> copy: <b>every dose declared.</b></div>
+
+<div class="toc">
+  <a href="#weapon"><span>01</span>Your real weapon</a>
+  <a href="#rivals"><span>02</span>Rivals &amp; proven winners</a>
+  <a href="#facts"><span>03</span>Label-accurate fact sheets</a>
+  <a href="#rules"><span>04</span>Compliance guardrails</a>
+  <a href="#glow"><span>05</span>Super Glow — scripts</a>
+  <a href="#slim"><span>06</span>Super Slim — scripts</a>
+  <a href="#broll"><span>07</span>Lifestyle b-roll prompt library</a>
+  <a href="#convert"><span>08</span>Economics &amp; conversion</a>
+  <a href="#workflow"><span>09</span>How to assemble</a>
+</div>
+
+<section id="weapon">
+<h2><span class="n">01</span>Your real weapon</h2>
+<p class="lead">You don't win on one ingredient. You win on <strong>honesty + completeness</strong>. Three pillars, all provable from your own panel:</p>
+<div class="cards">
+  <div class="fcard"><h4>1. Every dose declared</h4><div class="who">no proprietary blends</div><p>Competitors hide amounts inside "proprietary blends." You print all <strong>15 (Glow)</strong> and <strong>16 (Slim)</strong> actives at full mg. Honest, verifiable, ASCI/FSSAI-safe. <strong>This leads every ad.</strong></p></div>
+  <div class="fcard"><h4>2. Systems, not a pill</h4><div class="who">4 systems · 5 systems</div><p>Glow runs <strong>4 systems</strong> (repair, hydration, protection, gut-skin). Slim runs <strong>5</strong> (fat, blood sugar, appetite, gut, cortisol). "Most target one. NEXXGENE targets all of them."</p></div>
+  <div class="fcard"><h4>3. Epigenetic Nutrition</h4><div class="who">"your genes aren't your destiny"</div><p>The premium brand story: the body responds to <em>signals</em>. NEXXGENE sends the right signal, at the right dose, to each system — not a pixie-dusted single nutrient.</p></div>
+</div>
+<div class="note win"><b>Clinical dose as proof-of-honesty.</b> Super Slim's <b>1,500 mg L-Carnitine</b> is the full clinical dose, printed on the pack. The ad line writes itself: <em>"1,500mg. On the label. Not 500mg hidden in a 'blend.'"</em> — it turns your transparency into a direct jab at the category.</div>
+</section>
+
+<section id="rivals">
+<h2><span class="n">02</span>Rivals &amp; proven winners (recap)</h2>
+<p>From the live Meta Ad Library (India). Longevity = profitability: brands kill losers fast, so an ad active 50+ days is paying for itself.</p>
+<table>
+<tr><th>Arena</th><th>Who's spending</th><th>Proven-winner signal</th></tr>
+<tr><td><strong>Glow / collagen</strong></td><td>Chicnutrix ("8000mg"), Miduty ("absorption"), Pilgrim, Plix, Wellbeing, The Body Love (BOGO)</td><td>All creative &lt;2 days old → <span class="tag">high creative velocity</span> category; win on volume + positioning</td></tr>
+<tr><td><strong>Slim / metabolism</strong></td><td>Fast&amp;Up (L-Carnitine), Vaidban, Beautywise</td><td>Fast&amp;Up's <strong>L-Carnitine dose angle = 64+ days live</strong> <span class="tag g">evergreen</span>; their "lose 4kg/4wk" is a 2-day gamble</td></tr>
+</table>
+<div class="note"><b>Read:</b> go <b>dose/ingredient-led and declared</b> (beats Fast&amp;Up at their own proven game) and <b>ship many hooks</b> in glow (the category refreshes constantly). To watch the live videos: <a href="https://www.facebook.com/ads/library/">facebook.com/ads/library</a> → country India → search the brand names. <b>(I can't fetch the footage from here.)</b></div>
+</section>
+
+<section id="facts">
+<h2><span class="n">03</span>Label-accurate fact sheets — the single source of truth</h2>
+<p>Use these exact figures for every ad, caption and listing. <strong>Nothing here is invented</strong> — it's your printed panel.</p>
+
+<h3>Super Glow — ₹999 · 14 × 9g sachets · Alphonso Mango · <em>contains fish</em></h3>
+<p><strong>Hook:</strong> "Your moisturiser works on the surface. Collagen works from within." · <strong>Per 9g:</strong> 22.3 kcal · 4.2g protein · <strong>0g sugar</strong> · 0g fat. Daily, min 28 days.</p>
+<table class="sys1">
+<tr><th>System</th><th>Actives (declared mg)</th><th>What you say it supports</th></tr>
+<tr><td><strong>1 · Repair &amp; Structure</strong></td><td>Marine Collagen <strong>5,000mg</strong> · Vitamin C 80mg · Biotin 40mcg · Copper 1mg</td><td>Firm, elastic skin from within; collagen's own building blocks + its essential cofactor (Vit C)</td></tr>
+<tr><td><strong>2 · Hydration</strong></td><td>Hyaluronic Acid 200mg · Astaxanthin 4mg · Trans-Resveratrol 100mg · Vitamin B5 5mg</td><td>Deep moisture retention (HA holds ~1,000× its weight in water); antioxidant glow</td></tr>
+<tr><td><strong>3 · Protection</strong></td><td>Ashwagandha 200mg · Turmeric 200mg · Zinc 8mg · Piperine 10mg</td><td>Resilience vs. daily oxidative &amp; stress load; piperine boosts absorption of the rest</td></tr>
+<tr><td><strong>4 · Gut–Skin</strong></td><td>Bacillus coagulans <strong>5 Billion CFU</strong> · Inulin/FOS 300mg · L-Glutamine 500mg</td><td>The gut-skin axis; triple-coated probiotics that survive India's heat, no fridge</td></tr>
+</table>
+
+<h3>Super Slim — ₹899 · 14 × 9g sachets · Vanilla Cream · <em>100% vegetarian · no stimulants · no laxatives</em></h3>
+<p><strong>Hook:</strong> "You are not overeating. Your metabolism is underfiring." · <strong>Per 9g:</strong> 6.8 kcal · <strong>0g sugar</strong> · 0g fat · 0.95g fibre. Daily, 30 min before your largest meal.</p>
+<table class="sys2">
+<tr><th>System</th><th>Actives (declared mg)</th><th>What you say it supports</th></tr>
+<tr><td><strong>1 · Fat Mobilisation</strong></td><td>L-Carnitine L-Tartrate <strong>1,500mg</strong> · Green Coffee (50% CGA) 400mg · Garcinia (60% HCA) 400mg</td><td>Moves fat into the cell to be burned for energy — the clinical dose, declared</td></tr>
+<tr><td><strong>2 · Metabolic Balance</strong></td><td>Berberine HCl 200mg · Alpha-Lipoic Acid 300mg · Cinnamon 100mg · Chromium 35mcg</td><td>Supports AMPK ("the metabolic switch") &amp; healthy blood sugar</td></tr>
+<tr><td><strong>3 · Appetite &amp; Gut</strong></td><td>Smart Fibre 950mg: Inulin 400mg + Psyllium 300mg + Glucomannan 250mg · Probiotics <strong>20 Billion CFU</strong></td><td>Natural fullness within ~20 min; gut-metabolism support</td></tr>
+<tr><td><strong>4 · Ayurvedic Digestion</strong></td><td>Triphala 150mg · Ginger (10% gingerols) 100mg</td><td>Gentle, time-tested digestion &amp; elimination</td></tr>
+<tr><td><strong>5 · Cortisol &amp; Stress</strong></td><td>Ashwagandha 250mg · Digestive Enzyme Blend 100mg · Piperine 10mg</td><td>Healthy cortisol — the driver of desk-job belly fat; enzymes ease the load</td></tr>
+</table>
+</section>
+
+<section id="rules">
+<h2><span class="n">04</span>Compliance guardrails</h2>
+<ul>
+<li>Both are <strong>"Health Supplement — not for medical use."</strong> Never say cure / treat / detox-as-medicine / melts / burns fat.</li>
+<li><strong>No timelines or guarantees</strong> ("lose 4kg in 4 weeks"). Fast&amp;Up gambles on these; your 64-day lesson says the <em>dose</em> angle is what actually lasts.</li>
+<li><strong>Super Slim creative needs 18+ targeting</strong> (any weight framing triggers it). Frame as <em>metabolism, energy, fullness, less bloating</em> — not fat-loss promises.</li>
+<li><strong>Don't use the FSSAI licence as a promo badge</strong> (FSSAI prohibits it). Safe trust lines: <em>"US FDA-registered facility," "every dose declared," "0g sugar."</em></li>
+<li>Testimonials carry <strong>"results vary."</strong> No pinched-fat / body-shaming visuals.</li>
+<li>Safe verbs: <em>supports, helps, formulated for, visibly, feel.</em> Glow <em>skin</em> claims are safer than Slim <em>weight</em> claims — keep Slim on energy/metabolism.</li>
+</ul>
+</section>
+
+<!-- ============ SUPER GLOW ============ -->
+<section id="glow">
+<h2><span class="n">05</span>Super Glow — 3 scripts</h2>
+<p>Product reference for prompts: <em>a premium sachet and outer carton reading "NEXXGENE SUPER GLOW," warm champagne-gold + mango-amber palette; the drink mixes to a golden Alphonso-mango colour.</em></p>
+
+<div class="concept glow">
+  <div class="ch"><div class="k">Concept A · "Every dose declared" · 26s · cold hero</div><h4>"Turn the pack around. If the doses are hidden, so is the truth."</h4></div>
+  <div class="cb">
+    <p class="why"><strong>Why this wins:</strong> it's the one claim no competitor can answer, it's 100% compliant, and it reframes your 15-ingredient panel from "busy" into "proof of honesty."</p>
+    <table class="script">
+      <tr><th>Time</th><th>Voiceover</th><th>Visual + on-screen text</th></tr>
+      <tr><td>0–3s</td><td class="vo">"Here's a 5-second test for any collagen you're about to buy — turn the pack around."</td><td class="ost">Hand flips a generic jar. Text: <em>DO THIS BEFORE YOU BUY</em></td></tr>
+      <tr><td>3–10s</td><td class="vo">"See the words 'proprietary blend'? That means they won't tell you how much of anything you're actually getting."</td><td class="ost">Macro of a blurred label; "PROPRIETARY BLEND — ???" highlighted red. Text: <em>hidden doses = hidden truth</em></td></tr>
+      <tr><td>10–18s</td><td class="vo">"NEXXGENE Super Glow prints every milligram. 5,000mg marine collagen. Hyaluronic acid. Astaxanthin. Fifteen actives, four systems — all declared."</td><td class="ost">Clean panel; items light up one by one with mg. Text: <em>15 ACTIVES · 4 SYSTEMS · EVERY DOSE SHOWN</em></td></tr>
+      <tr><td>18–23s</td><td class="vo">"Repair, hydration, protection, and the gut-skin connection — in one Alphonso-mango sip. Zero sugar."</td><td class="ost">Sachet pours → golden mango swirl. Badges: <em>0g SUGAR · 22 kcal</em></td></tr>
+      <tr><td>23–26s</td><td class="vo">"Every dose declared. That's Super Glow. ₹999."</td><td class="ost">Pack hero on ivory. Text: <em>SUPER GLOW · ₹999 · nexxgene.com</em></td></tr>
+    </table>
+    <div class="prompt"><div class="lbl"><span class="pill">IMAGE · ChatGPT / DALL·E</span> the "declared panel" frame</div>
+<pre>Split-screen editorial product still, warm ivory studio, 9:16. LEFT: a generic supplement label with the blurred words <span class="hl">"PROPRIETARY BLEND"</span> stamped with a red question mark, muted and shadowy. RIGHT: a crisp, confident NEXXGENE Super Glow panel where <span class="hl">15 ingredient names with milligram numbers glow in warm gold, lit one by one</span>. Champagne-gold and mango-amber palette, clean clinical-luxury aesthetic, shallow depth of field, lots of negative space. No real brand names except NEXXGENE.</pre><button class="copy">Copy</button></div>
+    <div class="prompt"><div class="lbl"><span class="pill">VIDEO · Google Flow / Veo</span> panel reveal, 8s</div>
+<pre>Macro cinematic 9:16, warm ivory. Camera glides across a premium cream supplement panel; <span class="hl">ingredient lines ignite in sequence in soft gold light — each with a milligram figure appearing beside it</span> — building into a full glowing list. Elegant, confident, luxury-pharma mood, volumetric warm light, shallow depth of field, slow dolly. Subtle shimmer and soft chime as each line lights. No text overlays baked in, no logos besides a faint NEXXGENE.</pre><button class="copy">Copy</button></div>
+    <div class="prompt"><div class="lbl"><span class="pill">VIDEO · Flow / Veo</span> Alphonso-mango pour, 6s</div>
+<pre>Extreme macro, 9:16. A matte gold foil sachet tips into a clear glass of water; <span class="hl">a ribbon of golden Alphonso-mango powder swirls and blooms into a glowing amber-gold liquid</span>, fine bubbles rising, condensation on the glass, a ripe mango softly out of focus behind. Warm ivory backdrop, backlit, 120fps slow-motion, luxury beverage-ad lighting. ASMR pour-and-fizz audio. No text.</pre><button class="copy">Copy</button></div>
+  </div>
+</div>
+
+<div class="concept glow">
+  <div class="ch"><div class="k">Concept B · UGC testimonial · 30s · workhorse</div><h4>"I started reading supplement labels. I was being robbed."</h4></div>
+  <div class="cb">
+    <p class="why"><strong>Why this wins:</strong> rides the "every dose declared" truth through a relatable person (your <em>Smart-Ager</em> or <em>Bride-to-be</em> persona). Film one creator, cut 5 hooks.</p>
+    <table class="script">
+      <tr><th>Time</th><th>Voiceover (UGC)</th><th>Visual + on-screen text</th></tr>
+      <tr><td>0–4s</td><td class="vo">"I used to buy collagen by the number on the front. Then I learned to read the back."</td><td class="ost">Selfie, morning light, bare skin. Text: <em>what I wish I knew sooner</em></td></tr>
+      <tr><td>4–13s</td><td class="vo">"Half of them just say 'proprietary blend.' You have no idea how much you're getting. This one lists every single dose."</td><td class="ost">She turns the Super Glow pack, finger traces the mg list. Text: <em>15 actives · all declared</em></td></tr>
+      <tr><td>13–23s</td><td class="vo">"5,000mg collagen, hyaluronic acid, astaxanthin, even probiotics for the gut-skin thing. One mango sachet at night. Eight weeks in…"</td><td class="ost">Night ritual → glowing morning skin. Text: <em>8 weeks · results vary</em></td></tr>
+      <tr><td>23–30s</td><td class="vo">"…my skin just looks healthier. And it's ₹999. I'm not going back."</td><td class="ost">Dewy close-up, smile. Pack end-card. Text: <em>SUPER GLOW · ₹999</em></td></tr>
+    </table>
+    <div class="prompt"><div class="lbl"><span class="pill">VIDEO · Flow / Veo</span> talking-head, 8s</div>
+<pre>Vertical 9:16 UGC selfie video. An Indian woman ~32 with radiant bare skin talks warmly to camera in soft morning window light, holding a NEXXGENE Super Glow pack and turning it to show the back. Handheld micro-movement, authentic home bedroom softly blurred, natural tone, realistic skin texture — relatable, not corporate. No on-screen text.</pre><button class="copy">Copy</button></div>
+  </div>
+</div>
+
+<div class="concept glow">
+  <div class="ch"><div class="k">Concept C · ASMR ritual · 15s · reach</div><h4>"The 8 PM Alphonso-mango glow ritual."</h4></div>
+  <div class="cb">
+    <p class="why"><strong>Why this wins:</strong> pure sensory scroll-stopper, no claims to police, endlessly remixable, cheapest to produce. Pair it with Slim's AM ritual to tell the 24-hour story.</p>
+    <table class="script">
+      <tr><th>Time</th><th>Audio</th><th>Visual + on-screen text</th></tr>
+      <tr><td>0–3s</td><td class="vo">ASMR foil tear</td><td class="ost">Macro: fingers tear the gold sachet. Text: <em>POV: your 8pm wind-down</em></td></tr>
+      <tr><td>3–10s</td><td class="vo">Pour + fizz + stir</td><td class="ost">Golden mango powder blooms into water, swirls, condensation beads.</td></tr>
+      <tr><td>10–15s</td><td class="vo">Soft sip + chime</td><td class="ost">Backlit sip, warm skin glow. Text: <em>SUPER GLOW · 0g sugar</em></td></tr>
+    </table>
+    <div class="prompt"><div class="lbl"><span class="pill">VIDEO · Flow / Veo</span> full ASMR macro, 8s</div>
+<pre>Hyper-real extreme macro, 9:16, luxury ASMR. Elegant hands tear a matte gold foil sachet; <span class="hl">fine golden Alphonso-mango powder cascades in slow motion into a crystal glass of still water and blooms into a swirling amber-gold liquid</span>, tiny bubbles rising, heavy condensation, a ripe Alphonso mango softly out of focus behind. Warm ivory backdrop, volumetric backlight, 120fps. Crisp ASMR: foil tear, pour, gentle fizz. No text, no logos.</pre><button class="copy">Copy</button></div>
+  </div>
+</div>
+</section>
+
+<!-- ============ SUPER SLIM ============ -->
+<section id="slim">
+<h2><span class="n">06</span>Super Slim — 3 scripts</h2>
+<div class="note warn"><b>Compliance mode ON.</b> Framed as metabolism / energy / fullness, not fat-loss promises. Set 18+ targeting. Product reference: <em>a sachet/carton "NEXXGENE SUPER SLIM," cool sage-green + cream palette; mixes to a soft vanilla-cream drink.</em></p>
+
+<div class="concept slim">
+  <div class="ch"><div class="k">Concept A · The 5-system hero · 25s · cold hero</div><h4>"You're not overeating. Your metabolism is underfiring."</h4></div>
+  <div class="cb">
+    <p class="why"><strong>Why this wins:</strong> your own hook, and it removes blame (which converts). It reframes the whole category — everyone else pokes at one lever; you fire five.</p>
+    <table class="script">
+      <tr><th>Time</th><th>Voiceover</th><th>Visual + on-screen text</th></tr>
+      <tr><td>0–4s</td><td class="vo">"You eat clean. You walk your steps. And still — nothing moves. You're not the problem."</td><td class="ost">Relatable: salad, fitness watch, sigh at mirror. Text: <em>it's not willpower</em></td></tr>
+      <tr><td>4–11s</td><td class="vo">"Your metabolism doesn't run on one switch. It runs on five — fat, blood sugar, appetite, gut, and stress."</td><td class="ost">Five labelled nodes light up around a body silhouette. Text: <em>5 SYSTEMS</em></td></tr>
+      <tr><td>11–19s</td><td class="vo">"Super Slim fires all five: 1,500mg L-Carnitine, berberine for blood sugar, a 950mg smart-fibre blend for fullness, ashwagandha for cortisol, triphala and ginger for the gut."</td><td class="ost">Each system lights as named. Text: <em>1,500mg · 950mg FIBRE · all declared</em></td></tr>
+      <tr><td>19–25s</td><td class="vo">"The full clinical dose — declared, not hidden in a blend. Zero sugar, vanilla cream. Super Slim, ₹899."</td><td class="ost">Vanilla drink over ice. Text: <em>SUPER SLIM · ₹899 · 0g sugar</em></td></tr>
+    </table>
+    <div class="prompt"><div class="lbl"><span class="pill">IMAGE · ChatGPT / DALL·E</span> 5-systems frame</div>
+<pre>Clean product-science still, cool bright studio, 9:16. Center: a NEXXGENE Super Slim sachet. Around it, <span class="hl">five softly glowing labelled nodes connected by thin light-lines</span> — "Fat," "Blood Sugar," "Appetite," "Gut," "Cortisol" — arranged like a constellation. Sage-green and cream palette, fresh energetic mood, water-splash accents, soft daylight, shallow depth of field, lots of negative space. No extra text.</pre><button class="copy">Copy</button></div>
+    <div class="prompt"><div class="lbl"><span class="pill">VIDEO · Flow / Veo</span> systems ignite, 8s</div>
+<pre>Macro cinematic 9:16, cool clean light. <span class="hl">Five glowing nodes ignite one after another around a central Super Slim sachet, thin light-lines connecting them into a living network</span> that pulses gently. Sage-green and soft-cyan palette, premium clinical-but-fresh mood, volumetric glow, slow dolly-in. Subtle energising hum as each node lights. No baked text, faint NEXXGENE only.</pre><button class="copy">Copy</button></div>
+    <div class="prompt"><div class="lbl"><span class="pill">VIDEO · Flow / Veo</span> vanilla pour over ice, 6s</div>
+<pre>Extreme macro, 9:16. A Super Slim sachet pours soft vanilla-cream powder into a tall glass of iced water; <span class="hl">creamy swirls bloom and fold through clear ice cubes</span>, gentle bubbles, condensation running down the glass. Bright fresh daylight, clean beverage-ad look, 120fps slow motion. Satisfying pour-and-ice ASMR audio. No text.</pre><button class="copy">Copy</button></div>
+  </div>
+</div>
+
+<div class="concept slim">
+  <div class="ch"><div class="k">Concept B · Dose callout · 22s · cold / beats Fast&amp;Up</div><h4>"1,500mg. On the label. Not 500mg hidden in a 'blend.'"</h4></div>
+  <div class="cb">
+    <p class="why"><strong>Why this wins:</strong> attacks the category's proven winner (L-Carnitine) on the one axis it can't defend — <em>declared dose</em>. Uses your transparency as the knife.</p>
+    <table class="script">
+      <tr><th>Time</th><th>Voiceover</th><th>Visual + on-screen text</th></tr>
+      <tr><td>0–3s</td><td class="vo">"Most 'metabolism' drinks give you a sprinkle of L-Carnitine and hope you don't check the dose."</td><td class="ost">Loupe magnifies a tiny "…mg" buried in a blend. Text: <em>CHECK THE DOSE</em></td></tr>
+      <tr><td>3–10s</td><td class="vo">"L-Carnitine is what carries fat into your cells to be burned for energy. Too little, and nothing happens."</td><td class="ost">Fatty-acid droplets ferried into glowing mitochondria. Text: <em>fuel → energy</em></td></tr>
+      <tr><td>10–17s</td><td class="vo">"Super Slim gives you the full 1,500mg — printed on the pack — with berberine, smart fibre and ashwagandha behind it."</td><td class="ost">Big "1,500mg" stamps on the declared panel. Text: <em>1,500mg · DECLARED</em></td></tr>
+      <tr><td>17–22s</td><td class="vo">"Clean energy you can feel. Zero sugar. Super Slim, ₹899."</td><td class="ost">Vanilla drink, morning. Text: <em>SUPER SLIM · ₹899</em></td></tr>
+    </table>
+    <div class="prompt"><div class="lbl"><span class="pill">VIDEO · Flow / Veo</span> mitochondria ignite, 8s</div>
+<pre>Macro cinematic 9:16. <span class="hl">Golden fatty-acid droplets are ferried through a glowing channel into emerald mitochondria that ignite one by one into tiny furnaces</span>, releasing clean energy ripples. Cool clinical-vibrant lighting, sage-green and cyan palette, volumetric glow, shallow depth of field, slow dolly-in. Subtle electric energising hum. No text, no logos.</pre><button class="copy">Copy</button></div>
+  </div>
+</div>
+
+<div class="concept slim">
+  <div class="ch"><div class="k">Concept C · Problem-agitate · 30s · cold / retarget</div><h4>"The 3 PM crash isn't laziness. It's cortisol + fuel."</h4></div>
+  <div class="cb">
+    <p class="why"><strong>Why this wins:</strong> speaks straight to your <em>Minimalist Corporate Hustler</em> persona, and lets you use the ashwagandha-cortisol and smart-fibre stories without any weight-loss claim.</p>
+    <table class="script">
+      <tr><th>Time</th><th>Voiceover</th><th>Visual + on-screen text</th></tr>
+      <tr><td>0–4s</td><td class="vo">"If you crash every afternoon and your belly won't budge despite everything — this is for you."</td><td class="ost">Tired at desk, 3:00 clock. Text: <em>the 3 PM crash</em></td></tr>
+      <tr><td>4–13s</td><td class="vo">"Chronic stress keeps cortisol high — and high cortisol parks fat around your middle and spikes your cravings."</td><td class="ost">Cortisol line stays high; craving for snacks. Text: <em>cortisol = belly + cravings</em></td></tr>
+      <tr><td>13–23s</td><td class="vo">"Super Slim brings 250mg ashwagandha for cortisol, a 950mg fibre blend for fullness, and 1,500mg L-Carnitine for steady energy — zero sugar, no stimulants."</td><td class="ost">AM ritual → calm, energised walk. Text: <em>0g sugar · no stimulants</em></td></tr>
+      <tr><td>23–30s</td><td class="vo">"Trade the crash for steady. One vanilla sip before your biggest meal."</td><td class="ost">End-card. Text: <em>SUPER SLIM · ₹899 · results vary</em></td></tr>
+    </table>
+    <div class="prompt"><div class="lbl"><span class="pill">VIDEO · Flow / Veo</span> crash → payoff, 8s</div>
+<pre>Vertical 9:16, two beats. First: an Indian professional ~33 slumps at a home-office desk in dull mid-afternoon light, cold coffee, wall clock at 3:00 — realistic, slightly desaturated, tired. Hard cut: same person next morning on a sunlit balcony, calm and energised, vanilla drink in hand, then walking briskly and relaxed. Warm vibrant grade on the second beat. Natural audio, uplifting lift. No text.</pre><button class="copy">Copy</button></div>
+  </div>
+</div>
+</section>
+
+<!-- ============ B-ROLL LIBRARY ============ -->
+<section id="broll">
+<h2><span class="n">07</span>Lifestyle b-roll prompt library</h2>
+<p class="lead">Generate these in <strong>Google Flow / Veo</strong> (or your tool of choice), then drop them behind the scripts above as backgrounds, hooks and cutaways. All <strong>9:16, 6–8s, no on-screen text, no logos</strong> so you can overlay your own. Keep one consistent actor per persona across a set.</p>
+<div class="note"><b>Tip:</b> generate 3–4 takes of each and keep the most natural. For talking-head UGC, reuse the <em>same</em> person; for b-roll, consistency matters less — variety is good.</div>
+
+<h3>Super Glow — "glow from within" set</h3>
+<div class="prompt"><div class="lbl"><span class="pill">VEO / FLOW · b-roll</span> morning glow (hook-worthy)</div>
+<pre>9:16 cinematic. An Indian woman ~30 wakes in soft golden morning light, sits up in white linen sheets, <span class="hl">touches her bare, luminous cheek and smiles softly</span> as sunlight catches her skin. Warm, dreamy, authentic beauty-film grade, shallow depth of field, gentle handheld. Calm ambient audio. No text, no logos.</pre><button class="copy">Copy</button></div>
+<div class="prompt"><div class="lbl"><span class="pill">VEO / FLOW · b-roll</span> mirror confidence</div>
+<pre>9:16. A woman ~30 in a bright bathroom leans toward the mirror, <span class="hl">examines her glowing skin up close, runs a fingertip along her jaw, and gives a quiet confident smile</span>. Clean warm daylight, soft focus background, realistic skin texture, premium skincare-ad mood. Natural audio. No text.</pre><button class="copy">Copy</button></div>
+<div class="prompt"><div class="lbl"><span class="pill">VEO / FLOW · b-roll</span> Alphonso-mango kitchen moment</div>
+<pre>9:16. Sunlit minimalist kitchen; elegant hands <span class="hl">stir a golden mango-coloured drink in a clear glass, ripe Alphonso mangoes on the warm stone counter</span>, light streaming through a window. Fresh, premium, lifestyle-ad look, shallow depth of field, slow push-in. Soft morning ambience. No text, no logos.</pre><button class="copy">Copy</button></div>
+<div class="prompt"><div class="lbl"><span class="pill">VEO / FLOW · b-roll</span> bride-to-be (persona)</div>
+<pre>9:16. An Indian bride-to-be ~28 in soft natural light, draped in subtle gold jewellery, <span class="hl">radiant dewy skin, turns toward camera with a serene glowing smile</span>. Warm, elegant, cinematic wedding-film grade, shallow depth of field. Gentle score ambience. No text, no logos.</pre><button class="copy">Copy</button></div>
+
+<h3>Super Slim — "steady energy" set</h3>
+<div class="prompt"><div class="lbl"><span class="pill">VEO / FLOW · b-roll</span> energised morning walk</div>
+<pre>9:16 cinematic. An Indian woman ~32 in activewear <span class="hl">walks briskly through a sunlit tree-lined street, relaxed and energised, breathing easy, a light smile</span>. Fresh vibrant morning grade, natural movement, handheld follow. Airy ambient audio. No text, no logos.</pre><button class="copy">Copy</button></div>
+<div class="prompt"><div class="lbl"><span class="pill">VEO / FLOW · b-roll</span> the 3 PM slump (problem hook)</div>
+<pre>9:16. An Indian professional ~33 at a home-office desk in flat mid-afternoon light <span class="hl">rubs their eyes, slumps back, stares at a cold coffee; a wall clock reads 3:00</span>. Realistic, slightly desaturated, relatable-tired, subtle handheld. Quiet room ambience. No text, no logos.</pre><button class="copy">Copy</button></div>
+<div class="prompt"><div class="lbl"><span class="pill">VEO / FLOW · b-roll</span> calm, light, comfortable</div>
+<pre>9:16. A woman ~34 in relaxed clothing stands by a bright window, <span class="hl">places a hand lightly on her stomach and exhales, calm and comfortable, a content half-smile</span>. Soft daylight, warm clean grade, shallow depth of field. Natural ambience. No body-shaming framing, no text, no logos.</pre><button class="copy">Copy</button></div>
+<div class="prompt"><div class="lbl"><span class="pill">VEO / FLOW · b-roll</span> healthy meal, pre-meal ritual</div>
+<pre>9:16. A sunlit dining table with a balanced colourful Indian meal; <span class="hl">hands set down a tall glass of a soft vanilla-cream drink beside the plate</span>, steam rising from the food, warm inviting light. Premium food-film grade, shallow depth of field, slow push-in. Gentle ambience. No text, no logos.</pre><button class="copy">Copy</button></div>
+
+<h3>"The Stack" — both products (Corporate Hustler persona)</h3>
+<div class="prompt"><div class="lbl"><span class="pill">VEO / FLOW · b-roll</span> AM + PM 24-hour ritual</div>
+<pre>9:16 two-beat. Morning: a busy professional ~33 mixes a vanilla Super Slim drink in a bright kitchen before work. Dusk cut: same person at night mixing a golden Super Glow mango drink, winding down in warm lamplight. <span class="hl">A clean "AM → PM" rhythm across one day</span>. Premium lifestyle grade, consistent actor and apartment. No text, no logos.</pre><button class="copy">Copy</button></div>
+</section>
+
+<section id="convert">
+<h2><span class="n">08</span>Economics &amp; conversion (updated for real prices)</h2>
+<div class="note win"><b>Your margins are excellent — this is good news for ads.</b> At COGS ~₹13/sachet (Glow) and ~₹11 (Slim), a 14-sachet pack costs roughly <b>₹182 / ₹154</b> to make against <b>₹999 / ₹899</b> MRP — about <b>81–83% gross margin</b>. Naive break-even is ~1.2x ROAS; after shipping, COD and RTO, realistic break-even sits around <b>1.5–1.7x</b>. A new nutra brand lands <b>1.4–2.1x in month 1</b>, so you can be profitable early — <em>if the site converts.</em></div>
+<ul>
+<li><strong>Hook in 3 seconds</strong>, number or pain first, never the logo. Ship <strong>5+ hooks per concept</strong> — the hook is 80% of performance.</li>
+<li><strong>Caption everything</strong> (85% watch muted) — each VO line doubles as burned-in text.</li>
+<li><strong>Match ad → landing page.</strong> An "every dose declared" ad must land on a page that opens with the declared panel. (Your hero page needs its prices/claims corrected first — see note below.)</li>
+<li><strong>Seed 30–50 reviews before scaling.</strong> Bigger conversion lever than any ad tweak; social-proofed supplement sites convert ~6.8% vs ~1.5%.</li>
+<li><strong>Offer ladder:</strong> cold → single pack + free shipping; retarget → <em>The Stack</em> (Glow + Slim) bundle; festivals → BOGO (what The Body Love wins with).</li>
+<li><strong>Test matrix:</strong> 3 concepts × 3 hooks = 9 ads in one ad set, ₹1,500–2,000/day, judge after 4–5 days. At your budget, consolidate into one ad set so it can approach Meta's 50-events/week learning threshold.</li>
+</ul>
+<div class="note fix"><b>Carry-forward fix:</b> the hero landing pages I built earlier still show the old ₹1,899/₹1,799 prices and the <code>&lt;2,000 Da</code>/<code>OPITAC</code> claims. Say the word and I'll update them to ₹999/₹899 and the "every dose declared / 4-5 systems" story so your ads and landing pages match.</div>
+</section>
+
+<section id="workflow">
+<h2><span class="n">09</span>How these videos actually get made</h2>
+<p>Being straight about the division of labour so you get real output, not a dead end:</p>
+<ol>
+<li><strong>I give you the blueprint</strong> (above): scripts, shot lists, image prompts, video prompts, b-roll prompts — all label-accurate.</li>
+<li><strong>You (or an editor) generate the assets:</strong> product/science frames in ChatGPT image, motion clips + lifestyle b-roll in Google Flow / Veo. Lock one product reference image and reuse it everywhere for consistency.</li>
+<li><strong>Assemble in CapCut / Premiere:</strong> hook → story → product → CTA; burn in the on-screen text; add licensed music + SFX; caption for mute.</li>
+<li><strong>Export 9:16</strong> (Reels/Stories) + a 4:5 for feed. Ship 9 variants into one ad set.</li>
+</ol>
+<div class="note win"><b>I can also generate a live sample for you here.</b> This session has an image/video generation tool connected — I can produce <em>one</em> sample frame or short clip from any prompt above so you can judge the quality before committing, <b>but it spends your account's generation credits, so I'll only do it if you say go.</b> Otherwise, run the prompts in your own ChatGPT / Flow as planned.</div>
+</section>
+
+<div class="foot">
+NEXXGENE · Arantya Lifestyle — Video Studio v2. All ingredient names, doses, prices, flavours and nutrition taken from the printed back-panel labels you supplied. Competitive data from the Meta Ad Library (India), Nov 2026. Scripts written for FSSAI / ASCI / Meta health-policy compliance; nothing is claimed beyond the label.
+</div>
+
+</div>
+<script>
+document.querySelectorAll('.copy').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    var pre=btn.parentElement.querySelector('pre');var txt=pre.innerText;
+    navigator.clipboard.writeText(txt).then(function(){
+      btn.textContent='Copied';btn.classList.add('done');
+      setTimeout(function(){btn.textContent='Copy';btn.classList.remove('done');},1600);
+    }).catch(function(){
+      var r=document.createRange();r.selectNode(pre);window.getSelection().removeAllRanges();window.getSelection().addRange(r);
+      try{document.execCommand('copy');btn.textContent='Copied';btn.classList.add('done');
+      setTimeout(function(){btn.textContent='Copy';btn.classList.remove('done');},1600);}catch(e){}
+      window.getSelection().removeAllRanges();
+    });
+  });
+});
+</script>
+</body>
+</html>

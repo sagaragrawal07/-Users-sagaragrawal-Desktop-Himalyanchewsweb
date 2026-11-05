@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEXXGENE — Cellular Longevity Hero</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   NEXXGENE — ULTRA-PREMIUM CELLULAR LONGEVITY HERO
+   Self-contained. No external assets. Obsidian clinical luxury.
+   ============================================================ */
+
+:root{
+  /* Canvas */
+  --void:#06080C;
+  --void-2:#0A0D14;
+  --surface:rgba(255,255,255,0.028);
+  --surface-2:rgba(255,255,255,0.05);
+  --glass:rgba(16,20,28,0.55);
+
+  /* Hairlines */
+  --line:rgba(255,255,255,0.09);
+  --line-2:rgba(255,255,255,0.16);
+
+  /* Type */
+  --pure:#F4F6FA;
+  --silver:#B7C0CD;
+  --slate:#7C889A;
+  --muted:#525E6E;
+
+  /* Default accent = GLOW (warm champagne). Swapped per protocol. */
+  --accent:#E9B98A;
+  --accent-2:#E0A468;
+  --accent-rgb:233,185,138;
+  --accent-ink:#0A0705;
+
+  --font:'Inter Tight',-apple-system,BlinkMacSystemFont,sans-serif;
+  --serif:'Instrument Serif',Georgia,serif;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+
+  --r-sm:10px; --r-md:16px; --r-lg:24px; --r-full:999px;
+  --ease:cubic-bezier(.16,1,.3,1);
+  --spring:cubic-bezier(.34,1.4,.5,1);
+  --maxw:1240px;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  font-family:var(--font);
+  background:var(--void);
+  color:var(--pure);
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  overflow-x:hidden;
+}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer}
+::selection{background:rgba(var(--accent-rgb),.28);color:#fff}
+
+/* ---------- Ambient environment ---------- */
+.nx{
+  position:relative;
+  min-height:100svh;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+  isolation:isolate;
+  transition:--accent .6s var(--ease);
+}
+/* per-protocol accent tokens */
+.nx[data-protocol="glow"]{--accent:#E9B98A;--accent-2:#E0A468;--accent-rgb:233,185,138;--accent-ink:#0A0705}
+.nx[data-protocol="slim"]{--accent:#6FD6B4;--accent-2:#49B892;--accent-rgb:111,214,180;--accent-ink:#03110C}
+.nx[data-protocol="dual"]{--accent:#E7CC86;--accent-2:#D4AF37;--accent-rgb:231,204,134;--accent-ink:#0B0902}
+
+.aurora{position:absolute;inset:-20% -10% -10% -10%;z-index:0;pointer-events:none;filter:blur(90px);opacity:.9}
+.aurora span{position:absolute;border-radius:50%;mix-blend-mode:screen;transition:background 1s var(--ease)}
+.a1{width:640px;height:640px;top:-160px;right:-80px;
+  background:radial-gradient(circle,rgba(var(--accent-rgb),.22),transparent 62%);
+  animation:drift1 22s var(--ease) infinite alternate}
+.a2{width:520px;height:520px;bottom:-160px;left:-120px;
+  background:radial-gradient(circle,rgba(120,90,200,.14),transparent 64%);
+  animation:drift2 26s var(--ease) infinite alternate}
+.a3{width:420px;height:420px;top:32%;left:38%;
+  background:radial-gradient(circle,rgba(var(--accent-rgb),.10),transparent 66%);
+  animation:drift3 30s var(--ease) infinite alternate}
+@keyframes drift1{to{transform:translate(-70px,60px) scale(1.12)}}
+@keyframes drift2{to{transform:translate(80px,-50px) scale(1.15)}}
+@keyframes drift3{to{transform:translate(-40px,-40px) scale(1.08)}}
+
+/* fine film grain for premium screen texture */
+.grain{position:absolute;inset:0;z-index:1;pointer-events:none;opacity:.05;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.vignette{position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:radial-gradient(120% 90% at 50% 0%,transparent 55%,rgba(0,0,0,.55) 100%)}
+
+/* ---------- Nav ---------- */
+.nav{position:relative;z-index:5;display:flex;align-items:center;justify-content:space-between;
+  max-width:var(--maxw);width:100%;margin:0 auto;padding:26px 40px}
+.brand{display:flex;align-items:center;gap:11px;font-weight:700;letter-spacing:.24em;font-size:14px}
+.brand .mark{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;
+  background:linear-gradient(150deg,rgba(var(--accent-rgb),.9),rgba(var(--accent-rgb),.35));
+  color:var(--accent-ink);box-shadow:0 6px 22px rgba(var(--accent-rgb),.28), inset 0 1px 0 rgba(255,255,255,.5);
+  font-family:var(--serif);font-style:italic;font-size:17px;font-weight:400;transition:.6s var(--ease)}
+.brand small{color:var(--slate);font-weight:500;letter-spacing:.18em;font-size:10px;display:block;margin-top:2px}
+.nav-links{display:flex;align-items:center;gap:34px;font-size:13.5px;color:var(--silver);font-weight:500}
+.nav-links a{position:relative;transition:color .3s}
+.nav-links a::after{content:"";position:absolute;left:0;bottom:-6px;height:1px;width:0;background:var(--accent);transition:width .35s var(--ease)}
+.nav-links a:hover{color:var(--pure)}
+.nav-links a:hover::after{width:100%}
+.nav-cart{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);padding:9px 16px;border-radius:var(--r-full);
+  font-size:12.5px;color:var(--silver);transition:.3s var(--ease);background:var(--surface)}
+.nav-cart:hover{border-color:var(--line-2);color:var(--pure)}
+
+/* ---------- Hero grid ---------- */
+.wrap{position:relative;z-index:4;flex:1;display:flex;align-items:center;
+  max-width:var(--maxw);width:100%;margin:0 auto;padding:8px 40px 40px}
+.grid{display:grid;grid-template-columns:1.08fr .92fr;gap:40px;align-items:center;width:100%}
+
+/* ---------- Left column ---------- */
+.kicker{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:11px;font-weight:500;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--accent);
+  background:rgba(var(--accent-rgb),.07);border:1px solid rgba(var(--accent-rgb),.24);
+  padding:7px 14px;border-radius:var(--r-full);transition:.5s var(--ease)}
+.kicker .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 0 rgba(var(--accent-rgb),.6);
+  animation:pulse 2.4s var(--ease) infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(var(--accent-rgb),.55)}70%{box-shadow:0 0 0 9px rgba(var(--accent-rgb),0)}100%{box-shadow:0 0 0 0 rgba(var(--accent-rgb),0)}}
+
+h1{font-size:clamp(38px,5vw,66px);line-height:1.02;letter-spacing:-.03em;font-weight:700;margin:22px 0 18px}
+h1 .em{font-family:var(--serif);font-weight:400;font-style:italic;letter-spacing:-.01em;
+  background:linear-gradient(120deg,var(--accent),var(--accent-2));
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  transition:.5s var(--ease);padding-right:.06em}
+.sub{font-size:clamp(15px,1.35vw,17.5px);color:var(--silver);max-width:508px;line-height:1.62;font-weight:400}
+.sub b{color:var(--pure);font-weight:600}
+
+/* switcher */
+.switch{display:inline-flex;gap:6px;padding:6px;margin:26px 0;background:var(--surface);
+  border:1px solid var(--line);border-radius:var(--r-md);backdrop-filter:blur(12px)}
+.tab{display:flex;flex-direction:column;align-items:flex-start;gap:2px;border:1px solid transparent;background:transparent;
+  color:var(--slate);padding:9px 16px;border-radius:11px;transition:.32s var(--ease);min-width:112px}
+.tab .n{font-family:var(--mono);font-size:10px;letter-spacing:.1em;opacity:.7}
+.tab .l{font-size:13.5px;font-weight:600;color:inherit}
+.tab:hover{color:var(--silver);background:rgba(255,255,255,.03)}
+.tab.on{color:var(--pure);background:rgba(var(--accent-rgb),.10);border-color:rgba(var(--accent-rgb),.34);
+  box-shadow:0 6px 20px rgba(var(--accent-rgb),.12),inset 0 1px 0 rgba(255,255,255,.06)}
+.tab.on .n{color:var(--accent);opacity:1}
+
+/* price + cta */
+.buy{display:flex;align-items:center;gap:22px;margin:6px 0 22px;flex-wrap:wrap}
+.price{display:flex;align-items:baseline;gap:10px}
+.price .amt{font-size:34px;font-weight:700;letter-spacing:-.02em}
+.price .per{font-size:13px;color:var(--slate);font-weight:500}
+.price .save{font-family:var(--mono);font-size:11px;color:var(--accent);border:1px solid rgba(var(--accent-rgb),.3);
+  padding:3px 8px;border-radius:6px;background:rgba(var(--accent-rgb),.08)}
+.was{font-size:15px;color:var(--muted);text-decoration:line-through;font-weight:500}
+
+.cta-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.cta{position:relative;display:inline-flex;align-items:center;gap:12px;overflow:hidden;
+  background:linear-gradient(120deg,var(--accent),var(--accent-2));color:var(--accent-ink);
+  font-weight:700;font-size:15px;letter-spacing:.01em;padding:16px 26px;border:none;border-radius:var(--r-full);
+  box-shadow:0 12px 34px rgba(var(--accent-rgb),.32),inset 0 1px 0 rgba(255,255,255,.4);
+  transition:transform .5s var(--spring),box-shadow .4s var(--ease),background .5s var(--ease);will-change:transform}
+.cta:hover{box-shadow:0 18px 46px rgba(var(--accent-rgb),.46),inset 0 1px 0 rgba(255,255,255,.5)}
+.cta .arw{transition:transform .4s var(--spring)}
+.cta:hover .arw{transform:translateX(4px)}
+.cta::before{content:"";position:absolute;top:0;left:-120%;width:60%;height:100%;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-18deg);
+  transition:left .7s var(--ease)}
+.cta:hover::before{left:130%}
+
+.ghost{display:inline-flex;align-items:center;gap:9px;color:var(--silver);font-size:14px;font-weight:600;
+  padding:15px 20px;border-radius:var(--r-full);border:1px solid var(--line);background:var(--surface);
+  transition:.32s var(--ease)}
+.ghost:hover{border-color:var(--line-2);color:var(--pure);transform:translateY(-1px)}
+.ghost .q{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:11px;
+  background:rgba(var(--accent-rgb),.16);color:var(--accent);border:1px solid rgba(var(--accent-rgb),.3)}
+
+.trust{display:flex;align-items:center;gap:16px;margin-top:26px;flex-wrap:wrap;font-size:12.5px;color:var(--slate)}
+.trust span{display:inline-flex;align-items:center;gap:7px}
+.trust svg{width:14px;height:14px;stroke:var(--accent);opacity:.85}
+.trust .sep{width:3px;height:3px;border-radius:50%;background:var(--muted)}
+
+/* ---------- Right column: product stage ---------- */
+.stage{position:relative;height:560px;display:flex;align-items:center;justify-content:center;perspective:1400px}
+.stage-glow{position:absolute;width:420px;height:420px;border-radius:50%;filter:blur(70px);
+  background:radial-gradient(circle,rgba(var(--accent-rgb),.32),transparent 62%);transition:.6s var(--ease);z-index:0}
+.ped{position:absolute;bottom:96px;width:320px;height:44px;border-radius:50%;
+  background:radial-gradient(ellipse,rgba(var(--accent-rgb),.18),transparent 70%);filter:blur(8px)}
+
+.vessel{position:relative;z-index:2;width:186px;height:392px;transform-style:preserve-3d;
+  animation:float 9s ease-in-out infinite;will-change:transform}
+@keyframes float{0%,100%{transform:translateY(0) rotateZ(0)}50%{transform:translateY(-14px) rotateZ(.4deg)}}
+
+/* cap */
+.cap{position:absolute;top:-2px;left:50%;transform:translateX(-50%);width:112px;height:52px;z-index:3;
+  border-radius:12px 12px 7px 7px;
+  background:linear-gradient(180deg,#e8ebf0 0%,#aab2bf 16%,#6b7280 50%,#3a4048 74%,#585f68 100%);
+  box-shadow:0 10px 24px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.7),inset 0 -3px 6px rgba(0,0,0,.4)}
+.cap::before{content:"";position:absolute;inset:0 0 auto 0;height:24px;border-radius:12px 12px 0 0;
+  background:repeating-linear-gradient(90deg,rgba(255,255,255,.16) 0 1.5px,rgba(0,0,0,.22) 1.5px 3px)}
+.cap::after{content:"";position:absolute;bottom:-9px;left:6px;right:6px;height:11px;border-radius:3px;
+  background:linear-gradient(180deg,#2b3038,#1a1e24);box-shadow:inset 0 1px 0 rgba(255,255,255,.12)}
+
+/* glass body */
+.glass{position:absolute;top:44px;left:0;right:0;bottom:0;border-radius:20px 20px 26px 26px;overflow:hidden;
+  background:linear-gradient(100deg,rgba(255,255,255,.14) 0%,rgba(255,255,255,.03) 22%,rgba(255,255,255,.015) 60%,rgba(255,255,255,.07) 100%);
+  border:1px solid rgba(255,255,255,.14);
+  box-shadow:inset 0 0 30px rgba(255,255,255,.06),inset 8px 0 24px rgba(255,255,255,.10),inset -10px 0 26px rgba(0,0,0,.5),0 30px 60px rgba(0,0,0,.55)}
+/* luminous liquid */
+.liquid{position:absolute;left:6px;right:6px;bottom:6px;height:63%;border-radius:8px 8px 20px 20px;
+  background:linear-gradient(180deg,rgba(var(--accent-rgb),.30),rgba(var(--accent-rgb),.85));
+  box-shadow:inset 0 2px 14px rgba(255,255,255,.35),0 0 40px rgba(var(--accent-rgb),.5);
+  transition:.6s var(--ease);overflow:hidden}
+.liquid::before{content:"";position:absolute;top:0;left:-30%;right:-30%;height:12px;border-radius:50%;
+  background:rgba(255,255,255,.5);filter:blur(4px);animation:slosh 7s ease-in-out infinite}
+@keyframes slosh{0%,100%{transform:translateX(0) rotate(0)}50%{transform:translateX(10px) rotate(1deg)}}
+.liquid .bub{position:absolute;bottom:8px;width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.6);
+  animation:rise 5s linear infinite}
+.liquid .bub:nth-child(2){left:26%;animation-delay:0s}
+.liquid .bub:nth-child(3){left:52%;width:3px;height:3px;animation-delay:1.6s}
+.liquid .bub:nth-child(4){left:72%;width:4px;height:4px;animation-delay:3.1s}
+@keyframes rise{0%{transform:translateY(0);opacity:0}12%{opacity:.9}100%{transform:translateY(-150px);opacity:0}}
+/* specular streak */
+.glass::before{content:"";position:absolute;top:8px;left:14px;width:16px;height:82%;border-radius:12px;
+  background:linear-gradient(180deg,rgba(255,255,255,.6),rgba(255,255,255,0));filter:blur(2px);opacity:.7}
+/* frosted label */
+.label{position:absolute;left:0;right:0;top:34%;z-index:2;padding:14px 14px;text-align:center;
+  background:linear-gradient(180deg,rgba(10,12,16,.34),rgba(10,12,16,.5));backdrop-filter:blur(3px);
+  border-top:1px solid rgba(255,255,255,.14);border-bottom:1px solid rgba(255,255,255,.08)}
+.label .lb-brand{font-size:9px;letter-spacing:.34em;color:var(--pure);font-weight:700}
+.label .lb-name{font-family:var(--serif);font-style:italic;font-size:20px;color:#fff;margin:2px 0 3px;line-height:1;transition:.4s}
+.label .lb-spec{font-family:var(--mono);font-size:8px;letter-spacing:.08em;color:var(--accent);transition:.4s}
+.vessel .glass, .vessel .cap{backface-visibility:hidden}
+
+/* floor reflection */
+.reflection{position:absolute;bottom:70px;z-index:1;width:186px;height:150px;
+  transform:scaleY(-1);opacity:.14;filter:blur(2px);pointer-events:none;
+  -webkit-mask-image:linear-gradient(180deg,#000,transparent 70%);mask-image:linear-gradient(180deg,#000,transparent 70%);
+  background:linear-gradient(180deg,rgba(var(--accent-rgb),.5),transparent);border-radius:20px}
+
+/* floating proof chips */
+.chip{position:absolute;z-index:5;display:flex;align-items:center;gap:11px;padding:11px 15px;border-radius:14px;
+  background:var(--glass);backdrop-filter:blur(16px);border:1px solid var(--line);
+  box-shadow:0 16px 40px rgba(0,0,0,.5);animation:floatchip 8s ease-in-out infinite}
+.chip .ic{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;font-size:15px;
+  background:rgba(var(--accent-rgb),.14);border:1px solid rgba(var(--accent-rgb),.3)}
+.chip .big{font-family:var(--mono);font-size:14px;font-weight:600;color:var(--pure);display:block;line-height:1.1;transition:.4s}
+.chip .small{font-size:10.5px;color:var(--slate);display:block;margin-top:2px;transition:.4s}
+.chip-1{top:52px;left:-34px;animation-delay:0s}
+.chip-2{bottom:150px;right:-46px;animation-delay:1.5s}
+.chip-3{bottom:44px;left:-8px;animation-delay:3s}
+@keyframes floatchip{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+
+/* ---------- Validation ticker ---------- */
+.ticker{position:relative;z-index:4;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  background:rgba(8,10,14,.6);backdrop-filter:blur(10px);overflow:hidden;padding:14px 0}
+.ticker-track{display:inline-flex;gap:44px;white-space:nowrap;font-family:var(--mono);font-size:11px;
+  letter-spacing:.12em;color:var(--slate);animation:scroll 34s linear infinite;will-change:transform}
+.ticker-track span{display:inline-flex;align-items:center;gap:44px}
+.ticker-track b{color:var(--silver);font-weight:500}
+.ticker .di{color:rgba(var(--accent-rgb),.7)}
+@keyframes scroll{to{transform:translateX(-50%)}}
+
+/* ---------- Mobile sticky sheet ---------- */
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:60;display:none;align-items:center;justify-content:space-between;
+  gap:14px;padding:12px 18px calc(12px + env(safe-area-inset-bottom));
+  background:rgba(10,13,19,.86);backdrop-filter:blur(20px);border-top:1px solid var(--line);
+  transform:translateY(110%);transition:transform .45s var(--spring)}
+.sheet.up{transform:translateY(0)}
+.sheet .si .st{font-size:11px;color:var(--slate);display:block}
+.sheet .si .sp{font-size:19px;font-weight:700}
+.sheet .sb{flex:1;max-width:210px;justify-content:center}
+
+/* ---------- entrance reveal ---------- */
+.rv{opacity:0;transform:translateY(24px);filter:blur(6px)}
+.rv.in{opacity:1;transform:none;filter:none;transition:opacity .9s var(--ease),transform .9s var(--ease),filter .9s var(--ease)}
+.d1{transition-delay:.05s}.d2{transition-delay:.13s}.d3{transition-delay:.21s}.d4{transition-delay:.29s}
+.d5{transition-delay:.37s}.d6{transition-delay:.45s}.d7{transition-delay:.53s}
+.stage.rv{transform:translateY(24px) scale(.97)}
+
+.morphing .sub,.morphing .lb-name,.morphing .lb-spec,.morphing .chip .big,.morphing .chip .small,.morphing h1 .em{
+  opacity:.2;transition:opacity .16s ease}
+
+/* ---------- responsive ---------- */
+@media(max-width:980px){
+  .grid{grid-template-columns:1fr;gap:8px}
+  .stage{order:-1;height:400px;margin-top:4px}
+  .vessel{transform:scale(.82)}
+  .nav-links{display:none}
+  .wrap{padding:0 24px 30px}
+  .nav{padding:20px 24px}
+  h1{font-size:clamp(34px,9vw,52px)}
+  .sub{max-width:none}
+  .chip-1{left:2px}.chip-2{right:2px}.chip-3{display:none}
+}
+@media(max-width:560px){
+  .sheet{display:flex}
+  .buy{gap:14px}
+  .switch{width:100%;overflow-x:auto}
+  .tab{min-width:104px;flex:1}
+  .stage{height:340px}
+  .chip{transform:scale(.9)}
+}
+
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition-duration:.001ms!important}
+  .rv{opacity:1;transform:none;filter:none}
+}
+</style>
+</head>
+<body>
+<section class="nx" id="nx" data-protocol="glow">
+  <div class="aurora"><span class="a1"></span><span class="a2"></span><span class="a3"></span></div>
+  <div class="grain"></div>
+  <div class="vignette"></div>
+
+  <!-- NAV -->
+  <nav class="nav rv d1">
+    <a class="brand" href="#">
+      <span class="mark">N</span>
+      <span>NEXXGENE<small>ARANTYA LIFESTYLE</small></span>
+    </a>
+    <div class="nav-links">
+      <a href="#">24H Protocol</a>
+      <a href="#">The Science</a>
+      <a href="#">Formulations</a>
+      <a href="#">Certificate of Analysis</a>
+    </div>
+    <a class="nav-cart" href="#">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/><path d="M2 2h3l2.4 12.4a1 1 0 0 0 1 .8h9.7a1 1 0 0 0 1-.8L21 6H6"/></svg>
+      Cart · <span id="cartCount">₹0</span>
+    </a>
+  </nav>
+
+  <!-- HERO -->
+  <div class="wrap">
+    <div class="grid">
+      <!-- LEFT -->
+      <div class="left">
+        <div class="kicker rv d2"><span class="dot"></span><span id="kicker">CELLULAR LONGEVITY · CLINICAL-GRADE EPIGENETICS</span></div>
+
+        <h1 class="rv d3">Longevity, engineered<br>at <span class="em" id="emWord">cellular scale.</span></h1>
+
+        <p class="sub rv d4" id="sub">
+          <b>5,000&nbsp;mg hydrolyzed marine collagen peptides (&lt;2,000&nbsp;Da)</b> with Japanese OPITAC™ glutathione — sized for <b>98.4% direct absorption</b> and deep fibroblast dermal renewal.
+        </p>
+
+        <!-- protocol switcher -->
+        <div class="switch rv d5" role="tablist" aria-label="Protocol">
+          <button class="tab on" data-p="glow" role="tab" aria-selected="true">
+            <span class="n">01 · AM/PM</span><span class="l">Super Glow</span>
+          </button>
+          <button class="tab" data-p="slim" role="tab" aria-selected="false">
+            <span class="n">02 · AM</span><span class="l">Super Slim</span>
+          </button>
+          <button class="tab" data-p="dual" role="tab" aria-selected="false">
+            <span class="n">✦ 24-HOUR</span><span class="l">Dual System</span>
+          </button>
+        </div>
+
+        <!-- price -->
+        <div class="buy rv d6">
+          <div class="price">
+            <span class="amt" id="amt">₹1,899</span>
+            <span class="per" id="per">/ month · ₹67 a day</span>
+          </div>
+          <span class="was" id="was" style="display:none">₹3,898</span>
+          <span class="save" id="save" style="display:none">SAVE ₹399</span>
+        </div>
+
+        <!-- cta -->
+        <div class="cta-row rv d6">
+          <button class="cta" id="cta">
+            <span id="ctaLabel">Begin the 28-Day Glow Protocol</span>
+            <span class="arw">→</span>
+          </button>
+          <a class="ghost" href="#quiz">
+            <span class="q">🧬</span> Match my protocol · 60s
+          </a>
+        </div>
+
+        <!-- trust -->
+        <div class="trust rv d7">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> 90-day cellular guarantee</span>
+          <i class="sep"></i>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M20 6 9 17l-5-5"/></svg> Eurofins heavy-metal tested</span>
+          <i class="sep"></i>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M5 12h14M12 5l7 7-7 7"/></svg> Free cold-chain express</span>
+        </div>
+      </div>
+
+      <!-- RIGHT: product stage -->
+      <div class="stage rv d4" id="stage">
+        <div class="stage-glow"></div>
+        <div class="ped"></div>
+
+        <div class="chip chip-1" id="chip1">
+          <span class="ic">⚡</span>
+          <div><span class="big" data-k="c1b">+42% HYDRATION</span><span class="small" data-k="c1s">Dermal matrix · human trial</span></div>
+        </div>
+
+        <div class="vessel" id="vessel">
+          <div class="cap"></div>
+          <div class="glass">
+            <div class="liquid" id="liquid">
+              <i class="bub"></i><i class="bub"></i><i class="bub"></i>
+            </div>
+            <div class="label">
+              <div class="lb-brand">NEXXGENE</div>
+              <div class="lb-name" id="lbName">Super Glow</div>
+              <div class="lb-spec" id="lbSpec">MARINE COLLAGEN · &lt;2000 Da</div>
+            </div>
+          </div>
+        </div>
+        <div class="reflection"></div>
+
+        <div class="chip chip-2" id="chip2">
+          <span class="ic">🧬</span>
+          <div><span class="big" data-k="c2b">&lt;2,000 Da</span><span class="small" data-k="c2s">98.4% transcellular uptake</span></div>
+        </div>
+
+        <div class="chip chip-3" id="chip3">
+          <span class="ic">🛡️</span>
+          <div><span class="big" data-k="c3b">0.00% METALS</span><span class="small" data-k="c3s">Eurofins certified batch</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TICKER -->
+  <div class="ticker">
+    <div class="ticker-track">
+      <span>
+        <b>FSSAI REGISTERED</b><i class="di">◆</i>
+        <b>EUROFINS · 0.00% HEAVY METALS</b><i class="di">◆</i>
+        <b>&lt;2,000 Da ENZYMATIC PEPTIDES</b><i class="di">◆</i>
+        <b>GMP · ISO-22000 CERTIFIED</b><i class="di">◆</i>
+        <b>MADE IN INDIA</b><i class="di">◆</i>
+        <b>90-DAY MONEY-BACK GUARANTEE</b><i class="di">◆</i>
+      </span>
+      <span aria-hidden="true">
+        <b>FSSAI REGISTERED</b><i class="di">◆</i>
+        <b>EUROFINS · 0.00% HEAVY METALS</b><i class="di">◆</i>
+        <b>&lt;2,000 Da ENZYMATIC PEPTIDES</b><i class="di">◆</i>
+        <b>GMP · ISO-22000 CERTIFIED</b><i class="di">◆</i>
+        <b>MADE IN INDIA</b><i class="di">◆</i>
+        <b>90-DAY MONEY-BACK GUARANTEE</b><i class="di">◆</i>
+      </span>
+    </div>
+  </div>
+
+  <!-- MOBILE STICKY SHEET -->
+  <div class="sheet" id="sheet">
+    <div class="si"><span class="st" id="sheetTag">Super Glow · 28 days</span><span class="sp" id="sheetPrice">₹1,899</span></div>
+    <button class="cta sb"><span>Begin protocol</span><span class="arw">→</span></button>
+  </div>
+</section>
+
+<script>
+(function(){
+  "use strict";
+  var DATA={
+    glow:{
+      kicker:"CELLULAR LONGEVITY · CLINICAL-GRADE EPIGENETICS",
+      em:"cellular scale.",
+      sub:'<b>5,000&nbsp;mg hydrolyzed marine collagen peptides (&lt;2,000&nbsp;Da)</b> with Japanese OPITAC™ glutathione — sized for <b>98.4% direct absorption</b> and deep fibroblast dermal renewal.',
+      amt:"₹1,899",per:"/ month · ₹67 a day",was:null,save:null,
+      cta:"Begin the 28-Day Glow Protocol",lbName:"Super Glow",lbSpec:"MARINE COLLAGEN · &lt;2000 Da",
+      c1b:"+42% HYDRATION",c1s:"Dermal matrix · human trial",
+      c2b:"&lt;2,000 Da",c2s:"98.4% transcellular uptake",
+      c3b:"0.00% METALS",c3s:"Eurofins certified batch",
+      sheetTag:"Super Glow · 28 days",sheetPrice:"₹1,899"
+    },
+    slim:{
+      kicker:"MITOCHONDRIAL ATP · METABOLIC VELOCITY",
+      em:"metabolic scale.",
+      sub:'<b>1,500&nbsp;mg pure L-Carnitine tartrate</b> with Garcinia (60% HCA) &amp; EGCG — activating fatty-acid beta-oxidation and <b>+73% intracellular ATP</b>, with 0g added sugar.',
+      amt:"₹1,799",per:"/ month · ₹64 a day",was:null,save:null,
+      cta:"Begin the 28-Day Slim Protocol",lbName:"Super Slim",lbSpec:"L-CARNITINE · 1,500mg",
+      c1b:"+73% ATP FLUX",c1s:"Double-blind RCT · p<0.001",
+      c2b:"1,500 mg",c2s:"Active L-Carnitine tartrate",
+      c3b:"0g SUGAR",c3s:"Clean thermogenic energy",
+      sheetTag:"Super Slim · 28 days",sheetPrice:"₹1,799"
+    },
+    dual:{
+      kicker:"24-HOUR CIRCADIAN REGENERATION · COMPLETE SYSTEM",
+      em:"every hour.",
+      sub:'<b>AM metabolic ignition + PM dermal repair.</b> Super Slim at 08:00, Super Glow at 20:00 — a synchronized circadian protocol for total 24-hour cellular vitality.',
+      amt:"₹3,499",per:"/ month · ₹116 a day",was:"₹3,898",save:"SAVE ₹399",
+      cta:"Claim the 24-Hour Protocol",lbName:"24H Dual",lbSpec:"AM SLIM + PM GLOW · SYSTEM",
+      c1b:"100% COVERAGE",c1s:"AM energy + PM repair",
+      c2b:"2-IN-1 SYNERGY",c2s:"Heirloom vessel included",
+      c3b:"SAVE ₹399",c3s:"vs. buying separately",
+      sheetTag:"24H Dual System",sheetPrice:"₹3,499"
+    }
+  };
+
+  var nx=document.getElementById('nx');
+  var $=function(id){return document.getElementById(id)};
+  var byk=function(k){return document.querySelector('[data-k="'+k+'"]')};
+
+  function setState(p){
+    var d=DATA[p];if(!d)return;
+    nx.setAttribute('data-protocol',p);
+    document.querySelectorAll('.tab').forEach(function(t){
+      var on=t.getAttribute('data-p')===p;
+      t.classList.toggle('on',on);t.setAttribute('aria-selected',on?'true':'false');
+    });
+    nx.classList.add('morphing');
+    setTimeout(function(){
+      $('kicker').textContent=d.kicker;
+      $('emWord').textContent=d.em;
+      $('sub').innerHTML=d.sub;
+      $('amt').textContent=d.amt;
+      $('per').textContent=d.per;
+      $('ctaLabel').textContent=d.cta;
+      $('lbName').textContent=d.lbName;
+      $('lbSpec').innerHTML=d.lbSpec;
+      byk('c1b').innerHTML=d.c1b;byk('c1s').textContent=d.c1s;
+      byk('c2b').innerHTML=d.c2b;byk('c2s').textContent=d.c2s;
+      byk('c3b').innerHTML=d.c3b;byk('c3s').textContent=d.c3s;
+      $('sheetTag').textContent=d.sheetTag;$('sheetPrice').textContent=d.sheetPrice;
+      var was=$('was'),save=$('save');
+      if(d.was){was.textContent=d.was;was.style.display='';save.textContent=d.save;save.style.display='';}
+      else{was.style.display='none';save.style.display='none';}
+      // vessel pulse
+      var v=$('vessel');v.style.transition='transform .18s var(--ease)';v.style.transform='scale(.955)';
+      setTimeout(function(){v.style.transform='';v.style.transition='';},180);
+      nx.classList.remove('morphing');
+    },150);
+  }
+
+  document.querySelectorAll('.tab').forEach(function(t){
+    t.addEventListener('click',function(){setState(t.getAttribute('data-p'));});
+  });
+
+  /* entrance reveal */
+  window.addEventListener('load',function(){
+    document.querySelectorAll('.rv').forEach(function(el,i){
+      setTimeout(function(){el.classList.add('in');},60+i*14);
+    });
+  });
+
+  var reduce=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+  /* magnetic CTA */
+  if(!reduce){
+    var cta=$('cta');
+    cta.addEventListener('mousemove',function(e){
+      var r=cta.getBoundingClientRect();
+      var x=e.clientX-r.left-r.width/2,y=e.clientY-r.top-r.height/2;
+      cta.style.transform='translate('+x*0.18+'px,'+y*0.28+'px)';
+    });
+    cta.addEventListener('mouseleave',function(){cta.style.transform='';});
+
+    /* cursor parallax on stage */
+    var stage=$('stage'),vessel=$('vessel');
+    stage.addEventListener('mousemove',function(e){
+      var r=stage.getBoundingClientRect();
+      var x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
+      vessel.style.transform='rotateY('+x*14+'deg) rotateX('+(-y*12)+'deg) translateY('+y*6+'px)';
+    });
+    stage.addEventListener('mouseleave',function(){vessel.style.transform='';});
+  }
+
+  /* mobile sticky sheet */
+  var sheet=$('sheet'),ctaRow=document.querySelector('.cta-row');
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(function(en){
+      en.forEach(function(e){sheet.classList.toggle('up',!e.isIntersecting);});
+    },{threshold:0}).observe(ctaRow);
+  }
+})();
+</script>
+</body>
+</html>
